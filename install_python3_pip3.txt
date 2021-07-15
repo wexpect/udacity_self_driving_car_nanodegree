@@ -8,6 +8,8 @@ pip install --upgrade pip
 pip install jupyter
 pip install numpy pandas scikit-learn matplotlib pillow tqdm seaborn
 
+pip install moviepy
+
 pip3 install --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.6.0-py3-none-any.whl
 
 pip install keras  
