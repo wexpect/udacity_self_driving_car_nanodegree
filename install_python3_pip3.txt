@@ -12,6 +12,8 @@ pip install moviepy
 pip install PyQt5
 
 
+# install latest version
+pip install tensorflow
 
 pip3 install --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.6.0-py3-none-any.whl
 
