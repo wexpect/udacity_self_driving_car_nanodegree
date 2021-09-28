@@ -1,7 +1,10 @@
+import json
 import copy
 
-import numpy as np 
 from PIL import Image
+import numpy as np
+
+from utils import display_results, check_results
 
 
 def calculate_iou(gt_bbox, pred_bbox):
@@ -37,6 +40,15 @@ def hflip(img, bboxes):
     - flipped_bboxes [list[list]]: horizontally flipped bboxes
     """
     # IMPLEMENT THIS FUNCTION
+    flipped_img = img.transpose(Image.FLIP_LEFT_RIGHT)
+
+    w, h = img.size
+    
+    bboxes = np.array(boxes)
+    flipped_bboxes = copy.copy(bboxes)
+    flipped_bboxes[:, 1] = w - bboxes[:, 3]
+    flipped_bboxes[:, 3] = w - bboxes[:, 1]
+
     return flipped_img, flipped_bboxes
 
 
@@ -69,3 +81,25 @@ def random_crop(img, boxes, crop_size, min_area=100):
     """
     # IMPLEMENT THIS FUNCTION
     return cropped_image, cropped_boxes
+
+
+if __name__ == '__main__':
+    print('Start')
+    
+    np.random.seed(48)
+    
+    file_name = 'segment-12208410199966712301_4480_000_4500_000_with_camera_labels_79.png'
+    img = Image.open('data/images/' + file_name)
+    
+    with open('data/ground_truth.json') as f:
+        ground_truth = json.load(f)
+        
+    img_ground_truth = [g for g in ground_truth if g['filename'] == file_name][0]
+    boxes = img_ground_truth['boxes']
+    classes = img_ground_truth['classes']
+
+   # check horizontal flip
+    flipped_img, flipped_bboxes = hflip(img, boxes)
+    display_results(img, boxes, flipped_img, flipped_bboxes)
+    check_results(flipped_img, flipped_bboxes, aug_type='hflip')    
+    
