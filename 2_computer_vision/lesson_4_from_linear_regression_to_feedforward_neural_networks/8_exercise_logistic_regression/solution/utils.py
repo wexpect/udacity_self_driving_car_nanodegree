@@ -19,8 +19,8 @@ def check_ce(func):
     l1_norm = tf.norm(tf_ce - ce, ord=1)
     assert l1_norm < 1e-5, 'CE calculation is wrong'
     print('CE implementation is correct!')
-
-
+    
+    
 def check_model(func):
     # only check the output size here
     X = tf.random.uniform([28, 28, 3])
