@@ -17,6 +17,3 @@ def get_datasets(imdir):
                                         seed=123)
 
     return train_dataset, val_dataset
-
-
-from tensorflow.keras.preprocessing import image_dataset_from_directory
