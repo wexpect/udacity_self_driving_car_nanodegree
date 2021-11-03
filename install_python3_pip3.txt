@@ -11,6 +11,11 @@ pip install numpy pandas scikit-learn matplotlib pillow tqdm seaborn
 pip install moviepy
 pip install PyQt5
 
+# install albumentations
+pip install opencv-python==4.5.1.48
+pip install opencv-python-headless==4.5.1.48
+pip install scikit-image==0.17.2
+pip install albumentations
 
 # install latest version
 pip install tensorflow
