@@ -33,7 +33,7 @@ def create_tf_example(filename, encoded_jpeg, annotations, resize=True):
     else:
         image_tensor = tf.io.decode_jpeg(encoded_jpeg)
 
-        # NOTE: used to normalize bboxes
+        # NOTE: the *_factor are used to normalize bboxes
         height_factor, width_factor, _ = image_tensor.shape
         
         image_res = tf.cast(tf.image.resize(image_tensor, (640, 640)), tf.uint8)

@@ -44,24 +44,19 @@ def main(labelmap_path, model_path, tf_record_path, config_path, output_path):
     # update the eval config file
     eval_input_config.tf_record_input_reader.input_path[:] = [tf_record_path]
 
+    # NOTE: this is duplicate lines as below
 #     dataset = build_dataset(eval_input_config)
-        
-    
-    # QA: duplicate lines as above?    
+            
     # build dataset
-    dataset = build_dataset(eval_input_config)
-    
-    
-    
+    dataset = build_dataset(eval_input_config)    
     
     # here we infer on the entire dataset
     images = []
     logger.info(f'Inference on {tf_record_path}')
     for idx, batch in enumerate(dataset):
 
-        # QA: I think this does not work, need to add == 0
-        # if idx % 50:            
-        
+        # NOTE: this does not work, need to add == 0
+        # if idx % 50:                    
         if idx % 50 == 0:            
             logger.info(f'idx: {idx}')
             
@@ -81,11 +76,9 @@ def main(labelmap_path, model_path, tf_record_path, config_path, output_path):
         # detection_classes should be ints.
         detections['detection_classes'] = detections['detection_classes'].astype(np.int64)
 
-        
+        # NOTE: add print to monitor
         print('idx', idx, detections)
 
-        
-        
         image_np_with_detections = image_np.copy()
         viz_utils.visualize_boxes_and_labels_on_image_array(
             image_np_with_detections,
@@ -95,15 +88,11 @@ def main(labelmap_path, model_path, tf_record_path, config_path, output_path):
             category_index,
             use_normalized_coordinates=True,
             
-            
-            
             # NOTE: these two parameters can be tuned
 #             max_boxes_to_draw=200,            
 #             min_score_thresh=.30,
-
             max_boxes_to_draw=200,            
-            min_score_thresh=.30,            
-            
+            min_score_thresh=.30,                        
                         
             agnostic_mode=False)
         
@@ -121,8 +110,7 @@ def main(labelmap_path, model_path, tf_record_path, config_path, output_path):
         im_obj.set_data(image)
         
     anim = animation.FuncAnimation(f, animate, frames=198)
-    
-    
+        
     # NOTE: this parameters can be tuned    
     anim.save(output_path, fps=5, dpi=300)
 

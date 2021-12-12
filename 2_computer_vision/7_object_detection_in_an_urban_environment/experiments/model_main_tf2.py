@@ -67,8 +67,10 @@ flags.DEFINE_integer(
 
 
 
+# NOTE: this could be changed
 # flags.DEFINE_integer('checkpoint_every_n', 500, 'Integer defining how often we checkpoint.')
 flags.DEFINE_integer('checkpoint_every_n', 3000, 'Integer defining how often we checkpoint.')
+
 
 
 
@@ -118,9 +120,10 @@ def main(unused_argv):
           record_summaries=FLAGS.record_summaries)
 
     
+    
+    
 # 1. Train as
 # python experiments/model_main_tf2.py --model_dir=experiments/reference/ --pipeline_config_path=experiments/reference/pipeline_new.config
-
 
 
 
@@ -133,9 +136,6 @@ def main(unused_argv):
 
 
 
-
-
-
 # 3. Monitor with TensorBoard at 
 # http://localhost:6006/
 # python -m tensorboard.main --logdir experiments/reference/
@@ -144,7 +144,6 @@ def main(unused_argv):
 
 # 4. Monitor GPU
 # nvidia-smi
-
 
 
 if __name__ == '__main__':

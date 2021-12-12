@@ -17,8 +17,8 @@ def edit(train_dir, eval_dir, batch_size, checkpoint, label_map):
     - label_map [str]: path to labelmap file
     """
     pipeline_config = pipeline_pb2.TrainEvalPipelineConfig() 
-    with tf.gfile.GFile("pipeline.config", "r") as f:                                                                                                                                                                                                                     
-        proto_str = f.read()                                                                                                                                                                                                                                          
+    with tf.gfile.GFile("pipeline.config", "r") as f:                                                                           
+        proto_str = f.read()                                                                                                    
         text_format.Merge(proto_str, pipeline_config)  
     
     training_files = glob.glob(train_dir + '/*.tfrecord')
@@ -33,14 +33,14 @@ def edit(train_dir, eval_dir, batch_size, checkpoint, label_map):
     pipeline_config.eval_input_reader[0].tf_record_input_reader.input_path[:] = evaluation_files
 
     config_text = text_format.MessageToString(pipeline_config)             
-    with tf.gfile.Open("pipeline_new.config", "wb") as f:                                                                                                                                                                                                                  
+    with tf.gfile.Open("pipeline_new.config", "wb") as f:                                                                       
         f.write(config_text)   
 
+        
 # Run as
 # python edit_config.py --train_dir ./data/waymo/train --eval_dir ./data/waymo/val --batch_size 2 --checkpoint ./experiments/pretrained_model/ssd_resnet50_v1_fpn_640x640_coco17_tpu-8/checkpoint/ckpt-0 --label_map ./experiments/label_map.pbtxt
 
 # mv pipeline_new.config ./experiments/reference/
-
 
 if __name__ == "__main__": 
     parser = argparse.ArgumentParser(description='Download and process tf files')

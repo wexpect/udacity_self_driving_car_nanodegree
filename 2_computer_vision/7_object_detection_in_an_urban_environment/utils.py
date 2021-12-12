@@ -49,16 +49,9 @@ def get_train_input(config_path):
   configs = get_configs_from_pipeline_file(config_path)
   train_config = configs['train_config']
     
-    
-    
-    
-    
-  # QA: may need to change to train_input_reader? or not
+  # NOTE: no need to change to train_input_reader. it works
   train_input_config = configs['train_input_config']
 
-    
-    
-    
     
   # get the dataset
   dataset = train_input(train_config, train_input_config, configs['model'])
