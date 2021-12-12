@@ -111,6 +111,10 @@ venv.bak/
 
 *.gif
 
+.vscode
 
+2_computer_vision/7_object_detection_in_an_urban_environment/experiments/reference/checkpoint
+2_computer_vision/7_object_detection_in_an_urban_environment/experiments/reference/ckpt-9.data-00000-of-00001
+2_computer_vision/7_object_detection_in_an_urban_environment/experiments/reference/exported/
 
 
