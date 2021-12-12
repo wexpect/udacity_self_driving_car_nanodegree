@@ -107,3 +107,10 @@ venv.bak/
 
 *.tfrecord
 *.tar.gz
+
+
+*.gif
+
+
+
+
