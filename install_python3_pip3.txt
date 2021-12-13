@@ -25,33 +25,12 @@ pip3 install --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorf
 pip install keras  
 
 
-
 pip install easydict
 pip install shapely
 
 
-
-
-pip install --user --pre https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.14.1-cp39-cp39-macosx_10_14_x86_64.whl
-
-pip install --pre https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.14.1-cp39-cp39-macosx_10_14_x86_64.whl
-
-
-
-# install open3d from source
-http://www.open3d.org/docs/release/compilation.html
-
-# install cmake
-https://cmake.org/install/
-
-
-
-
-
-
-
-
-
+# after upgrade to MacOS Montery 12.0.1, can install directly
+pip3 install open3d
 
 
 
@@ -75,6 +54,12 @@ then install downgreade version
 
 
 
+
+
+# Git is not working after macOS Update (xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools)
+https://stackoverflow.com/questions/52522565/git-is-not-working-after-macos-update-xcrun-error-invalid-active-developer-pa
+
+xcode-select --install
 
 
 
