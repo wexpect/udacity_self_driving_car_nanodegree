@@ -134,13 +134,13 @@ def print_range_image_shape(frame, lidar_name):
     print(ri.shape)
 
     # extract range data and convert to 8 bit
-    #ri_range = ri[:,:,0]
-    #ri_range = ri_range * 256 / (np.amax(ri_range) - np.amin(ri_range))
-    #img_range = ri_range.astype(np.uint8)
+    ri_range = ri[:,:,0]
+    ri_range = ri_range * 256 / (np.amax(ri_range) - np.amin(ri_range))
+    img_range = ri_range.astype(np.uint8)
     
     # visualize range image
-    #cv2.imshow('range_image', img_range)
-    #cv2.waitKey(0)
+    cv2.imshow('range_image', img_range)
+    cv2.waitKey(0)
 
 
 # Example C1-3-3 : print angle of vertical field of view
@@ -153,7 +153,7 @@ def print_vfov_lidar(frame, lidar_name):
     vfov_rad = calib_lidar.beam_inclination_max - calib_lidar.beam_inclination_min
 
     # compute and print vfov in degrees
-    print(vfov_rad*180/np.pi)
+    print(vfov_rad * 180 / np.pi)
 
 
 # Example C1-3-2 : display camera image

@@ -120,7 +120,7 @@ while True:
 #         l1_examples.print_range_image_shape(frame, lidar_name)
 
         # Exercise C1-5-2 : Compute pitch angle resolution
-        # l1_exercises.print_pitch_resolution(frame, lidar_name)
+#         l1_exercises.print_pitch_resolution(frame, lidar_name)
 
         # Example C1-5-3 : Retrieve maximum and minimum distance
         # l1_examples.get_max_min_range(frame, lidar_name)
