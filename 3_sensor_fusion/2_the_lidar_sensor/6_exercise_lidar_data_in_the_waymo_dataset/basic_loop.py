@@ -58,11 +58,10 @@ import l1_exercises
 # Set parameters and perform initializations
 
 # Select Waymo Open Dataset file and frame numbers
-# data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord' # Sequence 1
+data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord' # Sequence 1
 # data_filename = 'training_segment-10072231702153043603_5725_000_5745_000_with_camera_labels.tfrecord' # Sequence 2
 # data_filename = 'training_segment-10963653239323173269_1924_000_1944_000_with_camera_labels.tfrecord'  # Sequence 3
-
-data_filename = 'training_segment-10017090168044687777_6380_000_6400_000_with_camera_labels.tfrecord' # Sequence 4
+# data_filename = 'training_segment-10017090168044687777_6380_000_6400_000_with_camera_labels.tfrecord' # Sequence 4
 
 
 
@@ -123,13 +122,13 @@ while True:
 #         l1_exercises.print_pitch_resolution(frame, lidar_name)
 
         # Example C1-5-3 : Retrieve maximum and minimum distance
-        # l1_examples.get_max_min_range(frame, lidar_name)
+#         l1_examples.get_max_min_range(frame, lidar_name)
 
         # Example C1-5-4 : Visualize range channel
 #         l1_examples.vis_range_channel(frame, lidar_name)
 
         # Exercise C1-5-5 : Visualize intensity channel
-#         l1_exercises.vis_intensity_channel(frame, lidar_name)
+        l1_exercises.vis_intensity_channel(frame, lidar_name)
 
         # Example C1-5-6 : Convert range image to 3D point-cloud
 #         l1_examples.range_image_to_point_cloud(frame, lidar_name)
