@@ -85,7 +85,13 @@ def range_image_to_point_cloud(frame, lidar_name, vis=True):
     if vis:
         pcd = o3d.geometry.PointCloud()
         pcd.points = o3d.utility.Vector3dVector(pcl)
+        # after plot, need to manually close the plot for code to continue
         o3d.visualization.draw_geometries([pcd])
+#         o3d.visualization.draw_geometries(
+#             [pcd], 
+#             point_show_normal=True, mesh_show_wireframe=True, mesh_show_back_face=True
+#         )                
+
 
     # stack lidar point intensity as last column
     pcl_full = np.column_stack((pcl, ri[idx_range, 1]))    

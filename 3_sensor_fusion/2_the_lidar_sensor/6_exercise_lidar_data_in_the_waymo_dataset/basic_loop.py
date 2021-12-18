@@ -65,7 +65,7 @@ data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_cam
 
 
 
-show_only_frames = [0, 10]  # show only frames in interval for debugging
+show_only_frames = [0, 1]  # show only frames in interval for debugging
 
 # set pause time between frames in ms (0 = stop between frames until key is pressed)
 vis_pause_time = 0  
@@ -90,7 +90,7 @@ while True:
         if cnt_frame < show_only_frames[0]:
             cnt_frame = cnt_frame + 1
             continue
-        elif cnt_frame > show_only_frames[1]:
+        elif cnt_frame >= show_only_frames[1]:
             print('reached end of selected frames')
             break
 
@@ -128,10 +128,10 @@ while True:
 #         l1_examples.vis_range_channel(frame, lidar_name)
 
         # Exercise C1-5-5 : Visualize intensity channel
-        l1_exercises.vis_intensity_channel(frame, lidar_name)
+#         l1_exercises.vis_intensity_channel(frame, lidar_name)
 
         # Example C1-5-6 : Convert range image to 3D point-cloud
-#         l1_examples.range_image_to_point_cloud(frame, lidar_name)
+        l1_examples.range_image_to_point_cloud(frame, lidar_name)
 
         #######
         ####### LESSON 1 EXERCISES & EXAMPLES  END #######
