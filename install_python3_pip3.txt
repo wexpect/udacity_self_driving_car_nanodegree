@@ -29,6 +29,10 @@ pip install easydict
 pip install shapely
 
 
+# Python 3.x
+pip3 install torch torchvision
+
+
 # after upgrade to MacOS Montery 12.0.1, can install directly
 pip3 install open3d
 
