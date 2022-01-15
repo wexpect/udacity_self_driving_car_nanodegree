@@ -55,9 +55,7 @@ model = "darknet"
 # model = "fpn_resnet"
 
 
-
 sequence = "1"
-
 
 ## Select Waymo Open Dataset file and frame numbers
 # data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord' # Sequence 1
@@ -75,8 +73,7 @@ data_filename = data_filenames[int(sequence)]
 
 
 # show_only_frames = [0, 200] # show only frames in interval for debugging
-# show_only_frames = [50, 51] # show only frames in interval for debugging
-show_only_frames = [0, 51] # show only frames in interval for debugging
+show_only_frames = [50, 51] # show only frames in interval for debugging
 
 
 
@@ -121,7 +118,7 @@ lidar = None # init lidar sensor object
 camera = None # init camera sensor object
 
 
-# conflict with below np.random.seed(0)?
+
 np.random.seed(10) # make random values predictable
 
 
@@ -130,18 +127,22 @@ np.random.seed(10) # make random values predictable
 ## Selective execution and visualization
 
 # options are 'show_range_image', 'bev_from_pcl', 'detect_objects', 'validate_object_labels', 'measure_detection_performance'; options not in the list will be loaded from file
-# exec_detection = ['bev_from_pcl', 'detect_objects', 'validate_object_labels', 'measure_detection_performance'] 
-exec_detection = ['bev_from_pcl', 'detect_objects']
+# exec_detection = ['bev_from_pcl', 'detect_objects', 'validate_object_labels', 'measure_detection_performance']
 # exec_detection = ['bev_from_pcl']
+# exec_detection = ['bev_from_pcl', 'detect_objects']
+exec_detection = ['bev_from_pcl', 'detect_objects', 'validate_object_labels', 'measure_detection_performance']
 
 
 # options are 'perform_tracking'
 exec_tracking = [] 
 
 
-# options are 'show_range_image', 'show_pcl', 'show_bev', 'show_labels_in_image', 'show_objects_and_labels_in_bev', 'show_objects_in_bev_labels_in_camera', 'show_tracks', 'show_detection_performance', 'make_tracking_movie'
-exec_visualization = ['show_objects_in_bev_labels_in_camera'] 
-
+# options are 'show_range_image', 'show_pcl', 'show_bev', 'show_labels_in_image', 'show_objects_and_labels_in_bev', 'show_objects_in_bev_labels_in_camera', 'show_tracks', 'show_detection_performance', 'make_tracking_movie', 'show_objects_and_labels_in_bev_and_camera'
+# exec_visualization = ['show_objects_in_bev_labels_in_camera']
+# exec_visualization = ['show_detection_performance']
+# exec_visualization = ['show_objects_in_bev_labels_in_camera', 'show_detection_performance']
+exec_visualization = ['show_objects_and_labels_in_bev_and_camera']
+# exec_visualization = ['show_objects_and_labels_in_bev_and_camera', 'show_detection_performance']
 
 
 exec_list = make_exec_list(exec_detection, exec_tracking, exec_visualization)
@@ -154,18 +155,10 @@ vis_pause_time = 0 # set pause time between frames in ms (0 = stop between frame
 
 cnt_frame = 0 
 all_labels = []
-det_performance_all = [] 
-
-
-
-# conflict with above np.random.seed(10)?
-np.random.seed(0) # make random values predictable
-
-
-
+det_performance_all = []
 
 if 'show_tracks' in exec_list:    
-    fig, (ax2, ax) = plt.subplots(1,2) # init track plot
+    fig, (ax2, ax) = plt.subplots(1, 2) # init track plot
 
 while True:
     try:
@@ -190,6 +183,7 @@ while True:
         camera_name = dataset_pb2.CameraName.FRONT
         lidar_calibration = waymo_utils.get(frame.context.laser_calibrations, lidar_name)        
         camera_calibration = waymo_utils.get(frame.context.camera_calibrations, camera_name)        
+
         if 'load_image' in exec_list:
             image = tools.extract_front_camera_image(frame) 
 
@@ -230,7 +224,7 @@ while True:
         ## Validate object labels
         if 'validate_object_labels' in exec_list:
             print("validating object labels")
-            valid_label_flags = tools.validate_object_labels(frame.laser_labels, lidar_pcl, configs_det, 0 if configs_det.use_labels_as_objects==True else 10)
+            valid_label_flags = tools.validate_object_labels(frame.laser_labels, lidar_pcl, configs_det, 0 if configs_det.use_labels_as_objects == True else 10)
         else:
             print('loading object labels and validation from result file')
             valid_label_flags = load_object_from_file(results_fullpath, data_filename, 'valid_labels', cnt_frame)            
@@ -245,7 +239,9 @@ while True:
             if 'perform_tracking' in exec_list:
                 det_performance = load_object_from_file(results_fullpath, data_filename, 'det_performance', cnt_frame)
             else:
-                det_performance = load_object_from_file(results_fullpath, data_filename, 'det_performance_' + configs_det.arch + '_' + str(configs_det.conf_thresh), cnt_frame)   
+                det_performance = load_object_from_file(results_fullpath, data_filename, 'det_performance_' + configs_det.arch + '_' + str(configs_det.conf_thresh), cnt_frame)
+
+        print('measure_detection_performance\n', det_performance)
 
         det_performance_all.append(det_performance) # store all evaluation results in a list for performance assessment at the end
         
@@ -279,16 +275,19 @@ while True:
 
         if 'show_objects_in_bev_labels_in_camera' in exec_list:
             tools.show_objects_in_bev_labels_in_camera(detections, lidar_bev, image, frame.laser_labels, valid_label_flags, camera_calibration, configs_det)
-            cv2.waitKey(vis_pause_time)               
+            cv2.waitKey(vis_pause_time)
+
+        # NOTE: my code
+        if 'show_objects_and_labels_in_bev_and_camera' in exec_list:
+            tools.show_objects_and_labels_in_bev_and_camera(detections, lidar_bev, image, frame.laser_labels, valid_label_flags, camera_calibration, configs_det)
+            cv2.waitKey(vis_pause_time)
 
 
-            
-            
-            
-            
-            
-            
-        #################################
+
+
+
+
+                #################################
         ## Perform tracking
         if 'perform_tracking' in exec_list:
             # set up sensor objects

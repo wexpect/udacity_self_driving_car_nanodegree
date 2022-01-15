@@ -22,6 +22,9 @@ PACKAGE_PARENT = '..'
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
 sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 
+
+from misc import objdet_tools
+
 # model-related
 from tools.objdet_models.resnet.models import fpn_resnet
 from tools.objdet_models.resnet.utils.evaluation_utils import decode, post_processing 
@@ -49,15 +52,17 @@ def load_configs_model(model_name='darknet', configs=None):
         configs.pretrained_filename = os.path.join(configs.model_path, 'pretrained', 'complex_yolov4_mse_loss.pth')
         configs.cfgfile = os.path.join(configs.model_path, 'config', 'complex_yolov4.cfg')
 
+        configs.img_size = 608
+
         configs.use_giou_loss = False
 
-        configs.batch_size = 4
-
-        configs.conf_thresh = 0.5  # confidence threshold
+        configs.conf_thresh = 0.5  # object confidence threshold
         configs.nms_thresh = 0.4
 
+        configs.min_iou = 0.5  # min iou between label bbox and detection bbox
+
         configs.distributed = False
-        configs.img_size = 608
+        configs.batch_size = 4
         configs.num_samples = None
         configs.num_workers = 4
         configs.pin_memory = True
@@ -103,8 +108,18 @@ def load_configs(model_name='fpn_resnet', configs=None):
     # visualization parameters
     configs.output_width = 608 # width of result image (height may vary)
     
-    # NOTE: seems the order of color channel is GBR
-    configs.obj_colors = [[0, 255, 255], [0, 0, 255], [255, 0, 0]] # 'Pedestrian': 0, 'Car': 1, 'Cyclist': 2
+    # NOTE: color for detection result
+    # order of color channel is BGR
+    #                          '  Pedestrian': 0, 'Car': 1,   'Cyclist': 2
+
+    #                                                green
+    configs.label_colors =       [[0, 255, 255], [0, 255, 0], [255, 0, 0]]
+    configs.label_front_colors = [[0, 255, 255], [255, 255, 0], [255, 0, 0]]
+
+    #                                               red
+    configs.obj_colors =         [[0, 255, 255], [0, 0, 255], [255, 0, 0]]
+    #                                               pink
+    configs.obj_front_colors =   [[0, 255, 255], [203, 192, 255], [255, 0, 0]]
 
     return configs
 
@@ -151,6 +166,7 @@ def detect_objects(input_bev_maps, model, configs):
     NOTE:
     As the model input is a three-channel BEV map, the detected objects will be returned
     with coordinates and properties in the BEV coordinate space.
+
     Thus, before the detections can move along in the processing pipeline,
     they need to be converted into metric coordinates in vehicle space.
 
@@ -165,6 +181,7 @@ def detect_objects(input_bev_maps, model, configs):
         outputs = model(input_bev_maps)
         print('model outputs\n', outputs)
         # NOTE: outputs
+        # in BEV coordinate space
         # [x, y, w, l, im, re, 6 -object confidence, 7: -classes scores]
         # x, y, w, l are in pixels
 
@@ -188,7 +205,11 @@ def detect_objects(input_bev_maps, model, configs):
                     x, y, w, l, im, re, _, _, _ = obj
                     yaw = np.arctan2(im, re)
 
-                    detections.append([1, x, y, 0.0, 1.50, w, l, yaw])
+                    # detections.append([1, x, y, 0.0, 1.50, w, l, yaw])
+
+                    # NOTE: I change z value
+                    detections.append([1, x, y, 1.8, 1.8, w, l, yaw])
+
                     # NOTE: for each detection element here,
                     # [class_id, x, y, z, h, w, l, yaw]
                     # class_id = 1, vehicle type
@@ -227,13 +248,14 @@ def detect_objects(input_bev_maps, model, configs):
             ## step 3 : perform the conversion using the limits for x, y and z set in the configs structure
 
             # NOTE: for each detection element here,
+            # in BEV coordinate
             # [class_id, x, y, z, h, w, l, yaw]
             # class_id = 1, vehicle type
             # x, y, w, l are in pixels
             # z, h are in meters
-            # yaw is from BEV map coordinate
+            # yaw is from BEV coordinate
 
-            # NOTE: in the Lidar meter and BEV pixel coordinates, x and y are opposite
+            # NOTE: in the Lidar metric coordinate and BEV coordinates, x and y are opposite
             # in BEV, x is the number of cols, y is the number of rows
 
             obj = np.copy(detection)
@@ -263,10 +285,14 @@ def detect_objects(input_bev_maps, model, configs):
             obj[7] = -1 * detection[7]
 
 
-            # NOTE: in obj, x, y, w, l are in meters
+            # NOTE: in obj, x, y, w, l are in  meters, in Lidar metric coordinate
 
             ## step 4 : append the current object to the 'objects' array
-            objects.append(obj)
+            min_overlap = 0.5
+            if objdet_tools.is_label_inside_detection_area(obj, configs, min_overlap):
+                objects.append(obj)
+
+            # objects.append(obj)
         
     #######
     ####### ID_S3_EX2 START #######   

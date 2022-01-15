@@ -197,7 +197,7 @@ def pcl_from_range_image(frame, lidar_name):
 # BIRDS-EYE VIEW
 
 # project detected bounding boxes into birds-eye view
-def project_detections_into_bev(bev_map, detections, configs, color=[]):
+def project_detections_into_bev(bev_map, detections, configs, color=[], front_color=[]):
     for row in detections:
         # extract detection
         _id, _x, _y, _z, _h, _w, _l, _yaw = row
@@ -218,6 +218,7 @@ def project_detections_into_bev(bev_map, detections, configs, color=[]):
         # draw object bounding box into birds-eye view
         if not color:
             color = configs.obj_colors[int(_id)]
+            front_color = configs.obj_front_colors[int(_id)]
         
         # get object corners within bev image
         bev_corners = np.zeros((4, 2), dtype=np.float32)
@@ -236,12 +237,15 @@ def project_detections_into_bev(bev_map, detections, configs, color=[]):
 
         # draw object as box
         corners_int = bev_corners.reshape(-1, 1, 2).astype(int)
-        cv2.polylines(bev_map, [corners_int], True, color, 2)
+        # cv2.polylines(bev_map, [corners_int], True, color, 2)
+        cv2.polylines(bev_map, [corners_int], True, color, 1)
 
         # draw colored line to identify object front
-        # NOTE: seems the order of color channel is GBR
+        # NOTE: GBR
         corners_int = bev_corners.reshape(-1, 2)
-        cv2.line(bev_map, (corners_int[0, 0], corners_int[0, 1]), (corners_int[3, 0], corners_int[3, 1]), (255, 255, 0), 2)
+        # cv2.line(bev_map, (corners_int[0, 0], corners_int[0, 1]), (corners_int[3, 0], corners_int[3, 1]), (255, 255, 0), 2)
+        # cv2.line(bev_map, (corners_int[0, 0], corners_int[0, 1]), (corners_int[3, 0], corners_int[3, 1]), front_color, 2)
+        cv2.line(bev_map, (corners_int[0, 0], corners_int[0, 1]), (corners_int[3, 0], corners_int[3, 1]), front_color, 1)
 
 
 
@@ -289,19 +293,19 @@ def convert_labels_into_objects(object_labels, configs):
     detections = []
     for label in object_labels:
         # transform label into a candidate object
-        if label.type==1 : # only use vehicles
+        if label.type == 1: # only use vehicles
             candidate = [label.type, label.box.center_x, label.box.center_y, label.box.center_z,
                          label.box.height, label.box.width, label.box.length, label.box.heading]
 
             # only add to object list if candidate is within detection area    
-            if(is_label_inside_detection_area(candidate, configs)):
+            if is_label_inside_detection_area(candidate, configs):
                 detections.append(candidate)
 
     return detections
 
 
 # compute location of each corner of a box and returns [front_left, rear_left, rear_right, front_right]
-def compute_box_corners(x,y,w,l,yaw):
+def compute_box_corners(x, y, w, l, yaw):
     cos_yaw = np.cos(yaw)
     sin_yaw = np.sin(yaw)
     
@@ -317,7 +321,7 @@ def compute_box_corners(x,y,w,l,yaw):
     fr = (x + w / 2 * cos_yaw - l / 2 * sin_yaw,  # front right
           y + w / 2 * sin_yaw + l / 2 * cos_yaw)
 
-    return [fl,rl,rr,fr]
+    return [fl, rl, rr, fr]
 
 
 # checks whether label is inside detection area
@@ -325,7 +329,7 @@ def is_label_inside_detection_area(label, configs, min_overlap=0.5):
 
     # convert current label object into Polygon object
     _, x, y, _, _, w, l, yaw = label
-    label_obj_corners = compute_box_corners(x,y,w,l,yaw)
+    label_obj_corners = compute_box_corners(x, y, w, l, yaw)
     label_obj_poly = Polygon(label_obj_corners)   
 
     # convert detection are into polygon
@@ -340,7 +344,10 @@ def is_label_inside_detection_area(label, configs, min_overlap=0.5):
     intersection = da_poly.intersection(label_obj_poly)
     overlap = intersection.area / label_obj_poly.area
 
-    return False if(overlap <= min_overlap) else True
+    print('is_label_inside_detection_area', 'intersection.area', intersection.area, 'label_obj_poly.area', label_obj_poly.area, 'overlap', overlap)
+
+    # return False if(overlap <= min_overlap) else True
+    return False if (overlap < min_overlap) else True
 
 
 
@@ -384,9 +391,11 @@ def show_objects_labels_in_bev(detections, object_labels, bev_maps, configs):
     bev_map = cv2.resize(bev_map, (configs.bev_width, configs.bev_height))
     
     label_detections = convert_labels_into_objects(object_labels, configs)
-    project_detections_into_bev(bev_map, label_detections, configs, [0,255,0])
-    project_detections_into_bev(bev_map, detections, configs, [0,0,255])
-    
+
+    # project_detections_into_bev(bev_map, label_detections, configs, [0, 255, 0], [0, 150, 0]) # BGR
+    # project_detections_into_bev(bev_map, detections, configs, [0, 0, 255], [203, 192, 255])
+    project_detections_into_bev(bev_map, label_detections, configs, [0, 255, 0], [255, 255, 0]) # BGR
+    project_detections_into_bev(bev_map, detections, configs, [0, 0, 255], [203, 192, 255])
 
     bev_map = cv2.rotate(bev_map, cv2.ROTATE_180)
     cv2.imshow('labels (green) vs. detected objects (red)', bev_map)
@@ -432,8 +441,7 @@ def project_labels_into_camera(camera_calibration, image, labels, labels_valid, 
 
     # draw all valid labels
     for label, vis in zip(labels, labels_valid):
-        # NOTE: the order of color channel is GBR
-
+        # NOTE: the order of color channel is BGR
         if vis:
             colour = (0, 255, 0)
         else:
@@ -441,6 +449,7 @@ def project_labels_into_camera(camera_calibration, image, labels, labels_valid, 
 
         # NOTE: only draw labels of type "vehicle"
         if(label.type == label_pb2.Label.Type.TYPE_VEHICLE):
+            # Draw a 3D bounding from a given 3D label on a given img
             waymo_utils.draw_3d_box(image, vehicle_to_image, label, colour=colour)
 
     # resize image
@@ -453,3 +462,79 @@ def project_labels_into_camera(camera_calibration, image, labels, labels_valid, 
     else:
         return image
 
+
+
+# NOTE: my code
+def show_objects_and_labels_in_bev_and_camera(detections, bev_maps, image, object_labels, object_labels_valid,
+                                              camera_calibration, configs):
+    # project detections into birds-eye view
+    bev_map = (bev_maps.squeeze().permute(1, 2, 0).numpy() * 255).astype(np.uint8)
+    bev_map = cv2.resize(bev_map, (configs.bev_width, configs.bev_height))
+
+    label_detections = convert_labels_into_objects(object_labels, configs)
+
+    print('show_objects_and_labels_in_bev_and_camera')
+    print('label_detections', label_detections)
+    print('detections', detections)
+
+
+    project_detections_into_bev(bev_map, label_detections, configs, [0, 255, 0], [255, 255, 0])  # BGR
+
+    project_detections_into_bev(bev_map, detections, configs, [0, 0, 255], [203, 192, 255])
+
+    bev_map = cv2.rotate(bev_map, cv2.ROTATE_180)
+
+
+
+    # project ground-truth labels into camera image
+    img_rgb = project_labels_into_camera(camera_calibration, image, object_labels, object_labels_valid)
+
+
+
+    # NOTE: my code. Project detections into camera image
+    img_rgb = project_detections_into_camera(camera_calibration, img_rgb, detections)
+
+
+
+    # merge camera image and bev image into a combined view
+    img_rgb_h, img_rgb_w = img_rgb.shape[:2]
+    ratio_rgb = configs.output_width / img_rgb_w
+    output_rgb_h = int(ratio_rgb * img_rgb_h)
+    ret_img_rgb = cv2.resize(img_rgb, (configs.output_width, output_rgb_h))
+
+    img_bev_h, img_bev_w = bev_map.shape[:2]
+    ratio_bev = configs.output_width / img_bev_w
+    output_bev_h = int(ratio_bev * img_bev_h)
+    ret_img_bev = cv2.resize(bev_map, (configs.output_width, output_bev_h))
+
+    out_img = np.zeros((output_rgb_h + output_bev_h, configs.output_width, 3), dtype=np.uint8)
+    out_img[:output_rgb_h, ...] = ret_img_rgb
+    out_img[output_rgb_h:, ...] = ret_img_bev
+
+    # show combined view
+    cv2.imshow('labels vs. detected objects', out_img)
+
+
+# NOTE: my code
+def project_detections_into_camera(camera_calibration, image, detections, img_resize_factor=1.0):
+
+    # get transformation matrix from vehicle frame to image
+    vehicle_to_image = waymo_utils.get_image_transform(camera_calibration)
+
+    for detection in detections:
+        # NOTE: only draw labels of type "vehicle"
+        colour = (0, 0, 255)
+
+        if detection[0] == label_pb2.Label.Type.TYPE_VEHICLE:
+            # Draw a 3D bounding from a given 3D detection on a given img
+            waymo_utils.draw_3d_detection(image, vehicle_to_image, detection, colour=colour)
+
+    # resize image
+    if (img_resize_factor < 1.0):
+        width = int(image.shape[1] * img_resize_factor)
+        height = int(image.shape[0] * img_resize_factor)
+        dim = (width, height)
+        img_resized = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
+        return img_resized
+    else:
+        return image

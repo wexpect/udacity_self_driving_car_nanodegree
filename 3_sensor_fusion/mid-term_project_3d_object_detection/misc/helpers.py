@@ -39,7 +39,7 @@ def make_exec_list(exec_detection, exec_tracking, exec_visualization):
     if any(i in exec_list for i in ('validate_object_labels', 'bev_from_pcl')):
         exec_list.append('pcl_from_rangeimage')
     # check if we need image
-    if any(i in exec_list for i in ('show_tracks', 'show_labels_in_image', 'show_objects_in_bev_labels_in_camera')):
+    if any(i in exec_list for i in ('show_tracks', 'show_labels_in_image', 'show_objects_in_bev_labels_in_camera', 'show_objects_and_labels_in_bev_and_camera')):
         exec_list.append('load_image')
     # movie does not work without show_tracks
     if 'make_tracking_movie' in exec_list:  

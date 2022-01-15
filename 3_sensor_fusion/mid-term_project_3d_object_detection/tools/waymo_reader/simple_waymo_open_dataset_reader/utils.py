@@ -33,7 +33,7 @@ from tools.waymo_reader.simple_waymo_open_dataset_reader import dataset_pb2, lab
 def get_box_transformation_matrix(box):
     """Create a transformation matrix for a given label box pose."""
 
-    tx,ty,tz = box.center_x,box.center_y,box.center_z
+    tx,ty,tz = box.center_x, box.center_y, box.center_z
     c = math.cos(box.heading)
     s = math.sin(box.heading)
 
@@ -44,6 +44,32 @@ def get_box_transformation_matrix(box):
         [ sl*s, sw*c,  0,ty],
         [    0,    0, sh,tz],
         [    0,    0,  0, 1]])
+
+
+
+# NOTE: my code
+def get_detection_transformation_matrix(detection):
+    """Create a transformation matrix for a given label box pose."""
+
+    # [class_id, x, y, z, h, w, l, yaw]
+    tx = detection[1]
+    ty = detection[2]
+    tz = detection[3]
+    sh = detection[4]
+    sw = detection[5]
+    sl = detection[6]
+    heading = detection[7]
+
+    c = math.cos(heading)
+    s = math.sin(heading)
+
+    return np.array([
+        [ sl*c,-sw*s,  0,tx],
+        [ sl*s, sw*c,  0,ty],
+        [    0,    0, sh,tz],
+        [    0,    0,  0, 1]])
+
+
 
 def get_3d_box_projected_corners(vehicle_to_image, label):
     """Get the 2D coordinates of the 8 corners of a label's 3D bounding box.
@@ -83,6 +109,47 @@ def get_3d_box_projected_corners(vehicle_to_image, label):
 
     return vertices
 
+
+# NOTE: my code
+def get_3d_detection_projected_corners(vehicle_to_image, detection):
+    """Get the 2D coordinates of the 8 corners of a label's 3D bounding box.
+
+    vehicle_to_image: Transformation matrix from the vehicle frame to the image frame.
+    label: The object label
+    """
+
+    # Get the vehicle pose
+    box_to_vehicle = get_detection_transformation_matrix(detection)
+
+    # Calculate the projection from the box space to the image space.
+    box_to_image = np.matmul(vehicle_to_image, box_to_vehicle)
+
+
+    # Loop through the 8 corners constituting the 3D box
+    # and project them onto the image
+    vertices = np.empty([2,2,2,2])
+    for k in [0, 1]:
+        for l in [0, 1]:
+            for m in [0, 1]:
+                # 3D point in the box space
+                v = np.array([(k-0.5), (l-0.5), (m-0.5), 1.])
+
+                # Project the point onto the image
+                v = np.matmul(box_to_image, v)
+
+                # If any of the corner is behind the camera, ignore this object.
+                if v[2] < 0:
+                    return None
+
+                vertices[k,l,m,:] = [v[0]/v[2], v[1]/v[2]]
+
+    vertices = vertices.astype(np.int32)
+
+    return vertices
+
+
+
+
 def compute_2d_bounding_box(img_or_shape,points):
     """Compute the 2D bounding box for a set of 2D points.
     
@@ -117,6 +184,7 @@ def draw_3d_box(img, vehicle_to_image, label, colour=(255,128,128), draw_2d_boun
     """
     import cv2
 
+    # Get the 2D coordinates of the 8 corners of a label's 3D bounding box.
     vertices = get_3d_box_projected_corners(vehicle_to_image, label)
 
     if vertices is None:
@@ -155,6 +223,38 @@ def draw_2d_box(img, label, colour=(255,128,128)):
 
     # Draw the rectangle
     cv2.rectangle(img, (x1,y1), (x2,y2), colour, thickness = 1)
+
+
+# NOTE: my code
+def draw_3d_detection(img, vehicle_to_image, detection, colour=(255,128,128), draw_2d_bounding_box=False):
+    """Draw a 3D bounding from a given 3D label on a given "img". "vehicle_to_image" must be a projection matrix from the vehicle reference frame to the image space.
+
+    draw_2d_bounding_box: If set a 2D bounding box encompassing the 3D box will be drawn
+    """
+    import cv2
+
+    # Get the 2D coordinates of the 8 corners of a label's 3D bounding box.
+    vertices = get_3d_detection_projected_corners(vehicle_to_image, detection)
+
+    if vertices is None:
+        # The box is not visible in this image
+        return
+
+    if draw_2d_bounding_box:
+        x1,y1,x2,y2 = compute_2d_bounding_box(img.shape, vertices)
+
+        if (x1 != x2 and y1 != y2):
+            cv2.rectangle(img, (x1,y1), (x2,y2), colour, thickness = 2)
+    else:
+        # Draw the edges of the 3D bounding box
+        for k in [0, 1]:
+            for l in [0, 1]:
+                for idx1,idx2 in [((0,k,l),(1,k,l)), ((k,0,l),(k,1,l)), ((k,l,0),(k,l,1))]:
+                    cv2.line(img, tuple(vertices[idx1]), tuple(vertices[idx2]), colour, thickness=2)
+
+        # Draw a cross on the front face to identify front & back.
+        for idx1,idx2 in [((1,0,0),(1,1,1)), ((1,1,0),(1,0,1))]:
+            cv2.line(img, tuple(vertices[idx1]), tuple(vertices[idx2]), colour, thickness=2)
 
 
 def decode_image(camera):
