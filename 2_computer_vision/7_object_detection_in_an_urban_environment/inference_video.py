@@ -91,8 +91,12 @@ def main(labelmap_path, model_path, tf_record_path, config_path, output_path):
             # NOTE: these two parameters can be tuned
 #             max_boxes_to_draw=200,            
 #             min_score_thresh=.30,
-            max_boxes_to_draw=200,            
-            min_score_thresh=.30,                        
+            max_boxes_to_draw=200,
+
+            # NOTE: https://github.com/tensorflow/models/blob/master/research/object_detection/utils/visualization_utils.py
+            # minimum score threshold for a box or keypoint to be visualized,
+            # depends on the parameter above, score (detections['detection_scores'])
+            min_score_thresh=.30,
                         
             agnostic_mode=False)
         

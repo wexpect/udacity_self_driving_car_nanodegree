@@ -105,6 +105,9 @@ venv.bak/
 
 .DS_Store
 
+.idea
+
+
 *.tfrecord
 *.tar.gz
 
