@@ -205,7 +205,7 @@ def project_detections_into_bev(bev_map, detections, configs, color=[], front_co
         print("project_detections_into_bev, _x, _y, _z, _h, _w, _l, _yaw\n", _x, _y, _z, _h, _w, _l, _yaw)
 
         # NOTE:  _x, _y, _z, _h, _w, _l should be in meters
-        # convert from metric into pixel coordinates
+        # convert from Liar metric coordinate into BEV pixel coordinates
         x = (_y - configs.lim_y[0]) / (configs.lim_y[1] - configs.lim_y[0]) * configs.bev_width
         y = (_x - configs.lim_x[0]) / (configs.lim_x[1] - configs.lim_x[0]) * configs.bev_height
         z = _z - configs.lim_z[0]

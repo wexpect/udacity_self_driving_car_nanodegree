@@ -165,7 +165,7 @@ def bev_from_pcl(lidar_pcl, configs):
     lidar_pcl_cpy = np.copy(lidar_pcl)
     lidar_pcl_cpy[:, 0] = np.int_(np.floor(lidar_pcl_cpy[:, 0] / bev_discret))
 
-    # transform all metrix y-coordinates as well but center the foward-facing x-axis on the middle of the image
+    # transform all metric y-coordinates as well but center the foward-facing x-axis on the middle of the image
     lidar_pcl_cpy[:, 1] = np.int_( np.floor(lidar_pcl_cpy[:, 1] / bev_discret) + (configs.bev_width + 1) / 2 )
     
     
