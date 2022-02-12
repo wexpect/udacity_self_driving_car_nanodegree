@@ -37,6 +37,7 @@ class Sensor:
             self.f_j = calib.intrinsic[1] # focal length j-coordinate
             self.c_i = calib.intrinsic[2] # principal point i-coordinate
             self.c_j = calib.intrinsic[3] # principal point j-coordinate
+            # NOTE: [-40 degree, 40 degree]
             self.fov = [-0.35, 0.35] # angle of field of view in radians, inaccurate boundary region was removed
             
         self.veh_to_sens = np.linalg.inv(self.sens_to_veh) # transformation vehicle to sensor coordinates

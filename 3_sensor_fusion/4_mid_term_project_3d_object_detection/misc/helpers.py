@@ -25,6 +25,8 @@ def save_object_to_file(object, file_path, base_filename, object_name, frame_id=
 def load_object_from_file(file_path, base_filename, object_name, frame_id=1):
     object_filename = os.path.join(file_path, os.path.splitext(base_filename)[0]
                                    + "__frame-" + str(frame_id) + "__" + object_name + ".pkl")
+    print('load_object_from_file', object_filename)
+
     with open(object_filename, 'rb') as f:
         object = pickle.load(f)
         return object

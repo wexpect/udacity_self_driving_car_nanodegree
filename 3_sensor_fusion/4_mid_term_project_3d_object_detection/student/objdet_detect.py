@@ -37,7 +37,7 @@ from tools.objdet_models.darknet.utils.evaluation_utils import post_processing_v
 def load_configs_model(model_name='darknet', configs=None):
 
     # init config file, if none has been passed
-    if configs==None:
+    if configs == None:
         configs = edict()  
 
     # get parent directory of this file to enable relative paths
@@ -80,7 +80,7 @@ def load_configs_model(model_name='darknet', configs=None):
         raise ValueError("Error: Invalid model name")
 
     # GPU vs. CPU
-    configs.no_cuda = True # if true, cuda is not used
+    configs.no_cuda = True  # if true, cuda is not used
     configs.gpu_idx = 0  # GPU index to use.
     configs.device = torch.device('cpu' if configs.no_cuda else 'cuda:{}'.format(configs.gpu_idx))
 
@@ -91,14 +91,14 @@ def load_configs_model(model_name='darknet', configs=None):
 def load_configs(model_name='fpn_resnet', configs=None):
 
     # init config file, if none has been passed
-    if configs==None:
+    if configs == None:
         configs = edict()    
 
     # birds-eye view (bev) parameters
-    configs.lim_x = [0, 50] # detection range in m
+    configs.lim_x = [0, 50]  # detection range in m
     configs.lim_y = [-25, 25]
     configs.lim_z = [-1, 3]
-    configs.lim_r = [0, 1.0] # reflected lidar intensity
+    configs.lim_r = [0, 1.0]  # reflected lidar intensity
     configs.bev_width = 608  # pixel resolution of bev image
     configs.bev_height = 608 
 
@@ -106,7 +106,7 @@ def load_configs(model_name='fpn_resnet', configs=None):
     configs = load_configs_model(model_name, configs)
 
     # visualization parameters
-    configs.output_width = 608 # width of result image (height may vary)
+    configs.output_width = 608  # width of result image (height may vary)
     
     # NOTE: color for detection result
     # order of color channel is BGR

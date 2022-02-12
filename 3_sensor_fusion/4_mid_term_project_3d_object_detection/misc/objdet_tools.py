@@ -363,9 +363,9 @@ def extract_front_camera_image(frame):
     # get image and convert tom RGB    
     # NOTE: actually, the returned img.mode is already RGB     
     image = waymo_utils.decode_image(camera)    
-    
-#     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
+
+#     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
     # Note: cv2 was interpreting the channel order as BGR, instead of RGB which was what pyplot was expecting
     # https://ashwindcruz.github.io/gotcha-cv2-pyplot-channel-order/    

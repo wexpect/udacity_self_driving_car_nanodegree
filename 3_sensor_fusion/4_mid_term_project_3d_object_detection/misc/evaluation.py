@@ -41,7 +41,8 @@ def plot_tracks(fig, ax, ax2, track_list, meas_list, lidar_labels, lidar_labels_
     # plot image
     ax.cla()
     ax2.cla()
-    ax2.imshow(image)
+    # ax2.imshow(image)
+    ax2.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
     
     # plot tracks, measurements and ground truth in birds-eye view
     for track in track_list:
@@ -146,7 +147,8 @@ def plot_tracks(fig, ax, ax2, track_list, meas_list, lidar_labels, lidar_labels_
     
     # maximize window        
     mng = plt.get_current_fig_manager()
-    mng.frame.Maximize(True)
+    # NOTE: seems not work
+    # mng.frame.Maximize(True)
     
     # axis 
     ax.set_xlabel('y [m]')
@@ -168,6 +170,7 @@ def plot_tracks(fig, ax, ax2, track_list, meas_list, lidar_labels, lidar_labels_
     ax.legend(handle_list, label_list, loc='center left', shadow=True, fontsize='x-large', bbox_to_anchor=(0.8, 0.5))
 
     plt.pause(0.01)
+    # plt.pause(5)
     
     return fig, ax, ax2
 
@@ -218,10 +221,13 @@ def plot_rmse(manager, all_labels, configs_det):
             # plot RMSE
             ax.plot(time, rmse, marker='x', label='RMSE track ' + str(track_id) + '\n(mean: ' 
                     + '{:.2f}'.format(rmse_sum) + ')')
-    
+
+    print('mean RMSE', rmse_sum)
+
     # maximize window     
     mng = plt.get_current_fig_manager()
-    mng.frame.Maximize(True)
+    # NOTE: seems not work
+    # mng.frame.Maximize(True)
     ax.set_ylim(0,1)
     if plot_empty: 
         print('No confirmed tracks found to plot RMSE!')
