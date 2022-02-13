@@ -82,8 +82,8 @@ data_filename = data_filenames[int(sequence)]
 # show_only_frames = [50, 51]
 
 # final project
-show_only_frames = [150, 153]
-# show_only_frames = [150, 200]
+# show_only_frames = [150, 155]
+show_only_frames = [150, 200]
 
 
 
@@ -216,9 +216,10 @@ while True:
         camera_name = dataset_pb2.CameraName.FRONT
         lidar_calibration = waymo_utils.get(frame.context.laser_calibrations, lidar_name)
         camera_calibration = waymo_utils.get(frame.context.camera_calibrations, camera_name)        
-        print('lidar_calibration\n', lidar_calibration)
-        print('camera_calibration\n', camera_calibration)
-        # NOTE:
+        # print('lidar_calibration\n', lidar_calibration)
+        # print('camera_calibration\n', camera_calibration)
+
+        # NOTE: output
         # lidar_calibration
         #     name: TOP
         #     beam_inclinations: -0.30748756489461426
@@ -482,15 +483,19 @@ while True:
                     meas_list_cam = camera.generate_measurement(cnt_frame, z, meas_list_cam)
             
             # Kalman prediction
+            print('track_list', manager.track_list)
             for track in manager.track_list:
                 print('predict track', track.id)
                 KF.predict(track)
-                track.set_t((cnt_frame - 1) * 0.1) # save next timestamp
+                # track.set_t((cnt_frame - 1) * 0.1) # save next timestamp
+                track.set_t((cnt_frame - 1) * params.dt)  # save next timestamp
                 
             # associate all lidar measurements to all tracks
+            print('associate lidar measurements to all tracks')
             association.associate_and_update(manager, meas_list_lidar, KF)
             
             # associate all camera measurements to all tracks
+            print('associate camera measurements to all tracks')
             association.associate_and_update(manager, meas_list_cam, KF)
             
             # save results for evaluation

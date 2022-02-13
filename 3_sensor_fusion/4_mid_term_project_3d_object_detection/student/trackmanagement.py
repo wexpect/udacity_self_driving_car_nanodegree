@@ -35,18 +35,22 @@ class Track:
         # - initialize track state and track score with appropriate values
         ############
 
-        self.x = np.matrix([[49.53980697],
-                        [ 3.41006279],
-                        [ 0.91790581],
-                        [ 0.        ],
-                        [ 0.        ],
-                        [ 0.        ]])
-        self.P = np.matrix([[9.0e-02, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00],
-                        [0.0e+00, 9.0e-02, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00],
-                        [0.0e+00, 0.0e+00, 6.4e-03, 0.0e+00, 0.0e+00, 0.0e+00],
-                        [0.0e+00, 0.0e+00, 0.0e+00, 2.5e+03, 0.0e+00, 0.0e+00],
-                        [0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 2.5e+03, 0.0e+00],
-                        [0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 2.5e+01]])
+        self.x = np.matrix([
+            [49.53980697],
+            [ 3.41006279],
+            [ 0.91790581],
+            [ 0.        ],
+            [ 0.        ],
+            [ 0.        ]
+        ])
+        self.P = np.matrix([
+            [9.0e-02, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00],
+            [0.0e+00, 9.0e-02, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00],
+            [0.0e+00, 0.0e+00, 6.4e-03, 0.0e+00, 0.0e+00, 0.0e+00],
+            [0.0e+00, 0.0e+00, 0.0e+00, 2.5e+03, 0.0e+00, 0.0e+00],
+            [0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 2.5e+03, 0.0e+00],
+            [0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 2.5e+01]
+        ])
         self.state = 'confirmed'
         self.score = 0
         
@@ -75,11 +79,12 @@ class Track:
         # use exponential sliding average to estimate dimensions and orientation
         if meas.sensor.name == 'lidar':
             c = params.weight_dim
-            self.width = c*meas.width + (1 - c)*self.width
-            self.length = c*meas.length + (1 - c)*self.length
-            self.height = c*meas.height + (1 - c)*self.height
+            self.width = c * meas.width + (1 - c) * self.width
+            self.length = c * meas.length + (1 - c) * self.length
+            self.height = c * meas.height + (1 - c) * self.height
+
             M_rot = meas.sensor.sens_to_veh
-            self.yaw = np.arccos(M_rot[0,0]*np.cos(meas.yaw) + M_rot[0,1]*np.sin(meas.yaw)) # transform rotation from sensor to vehicle coordinates
+            self.yaw = np.arccos(M_rot[0,0] * np.cos(meas.yaw) + M_rot[0,1] * np.sin(meas.yaw)) # transform rotation from sensor to vehicle coordinates
         
         
 ###################        
@@ -92,7 +97,9 @@ class Trackmanagement:
         self.last_id = -1
         self.result_list = []
         
-    def manage_tracks(self, unassigned_tracks, unassigned_meas, meas_list):  
+    def manage_tracks(self, unassigned_tracks, unassigned_meas, meas_list):
+        print('manage_tracks start')
+
         ############
         # TODO Step 2: implement track management:
         # - decrease the track score for unassigned tracks

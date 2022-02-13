@@ -59,8 +59,9 @@ class Sensor:
         # calculate nonlinear measurement expectation value h(x)   
         if self.name == 'lidar':
             pos_veh = np.ones((4, 1)) # homogeneous coordinates
-            pos_veh[0:3] = x[0:3] 
-            pos_sens = self.veh_to_sens*pos_veh # transform from vehicle to lidar coordinates
+            pos_veh[0:3] = x[0:3]
+
+            pos_sens = self.veh_to_sens * pos_veh # transform from vehicle to lidar coordinates
             return pos_sens[0:3]
         elif self.name == 'camera':
             
@@ -83,6 +84,7 @@ class Sensor:
         H = np.matrix(np.zeros((self.dim_meas, params.dim_state)))
         R = self.veh_to_sens[0:3, 0:3] # rotation
         T = self.veh_to_sens[0:3, 3] # translation
+
         if self.name == 'lidar':
             H[0:3, 0:3] = R
         elif self.name == 'camera':
@@ -139,17 +141,21 @@ class Measurement:
             sigma_lidar_x = params.sigma_lidar_x # load params
             sigma_lidar_y = params.sigma_lidar_y
             sigma_lidar_z = params.sigma_lidar_z
-            self.z = np.zeros((sensor.dim_meas,1)) # measurement vector
+
+            self.z = np.zeros((sensor.dim_meas, 1)) # measurement vector
             self.z[0] = z[0]
             self.z[1] = z[1]
             self.z[2] = z[2]
-            self.R = np.matrix([[sigma_lidar_x**2, 0, 0], # measurement noise covariance matrix
-                                [0, sigma_lidar_y**2, 0], 
-                                [0, 0, sigma_lidar_z**2]])
-            
+
+            self.R = np.matrix([
+                [sigma_lidar_x**2,  0,                  0], # measurement noise covariance matrix
+                [0,                 sigma_lidar_y**2,   0],
+                [0,                 0,                  sigma_lidar_z**2]
+            ])
+
+            self.height = z[3]
             self.width = z[4]
             self.length = z[5]
-            self.height = z[3]
             self.yaw = z[6]
         elif sensor.name == 'camera':
             

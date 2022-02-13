@@ -31,7 +31,8 @@ class Association:
         self.unassigned_meas = []
         
     def associate(self, track_list, meas_list, KF):
-             
+        print('associate start')
+
         ############
         # TODO Step 3: association:
         # - replace association_matrix with the actual association matrix based on Mahalanobis distance (see below) for all tracks and all measurements
@@ -105,7 +106,8 @@ class Association:
     
         # update associated tracks with measurements
         while self.association_matrix.shape[0]>0 and self.association_matrix.shape[1]>0:
-            
+            print('update associated tracks with measurements')
+
             # search for next association between a track and a measurement
             ind_track, ind_meas = self.get_closest_track_and_meas()
             if np.isnan(ind_track):

@@ -10,7 +10,6 @@ class Filter:
         # system matrix
         
         # Note: assume delta_t = 1
-        
         return np.matrix([[1, 1],  
                         [0, 1]])
 
@@ -18,7 +17,6 @@ class Filter:
         # process noise covariance Q
         
         # NOTE: assume constant velocity
-        
         return np.matrix([[0, 0],  
                         [0, 0]])
         

@@ -24,14 +24,28 @@ import misc.params as params
 class Filter:
     '''Kalman filter class'''
     def __init__(self):
-        pass
+        self.dim_state = params.dim_state # process model dimension
+        self.dt = params.dt # time increment
+        self.q = params.q # process noise variable for Kalman filter Q
+        # pass
 
     def F(self):
         ############
         # TODO Step 1: implement and return system matrix F
         ############
+        dt = self.dt
 
-        return 0
+        F = np.matrix([
+            [1, 0,  0,  dt, 0,  0],
+            [0, 1,  0,  0,  dt, 0],
+            [0, 0,  1,  0,  0,  dt],
+            [0, 0,  0,  1,  0,  0],
+            [0, 0,  0,  0,  1,  0],
+            [0, 0,  0,  0,  0,  1],
+        ])
+        print('F\n', F)
+        return F
+        # return 0
         
         ############
         # END student code
@@ -41,8 +55,20 @@ class Filter:
         ############
         # TODO Step 1: implement and return process noise covariance Q
         ############
+        dt = self.dt
+        q = self.q
 
-        return 0
+        Q = np.matrix([
+            [dt**3 * q / 3,     0,                  0,              dt**2 * q / 2,  0,              0],
+            [0,                 dt**3 * q / 3,      0,              0,              dt**2 * q / 2,  0],
+            [0,                             0,      dt**3 * q / 3,  0,              0,              dt** 2 * q / 2],
+            [dt**2 * q / 2,     0,                  0,              dt * q,         0,              0],
+            [0,                 dt**2 * q / 2,      0,              0,              dt * q,         0],
+            [0,                 0,                  dt**2 * q / 2,  0,              0,              dt * q],
+        ])
+        print('Q\n', Q)
+        return Q
+        # return 0
         
         ############
         # END student code
@@ -52,8 +78,26 @@ class Filter:
         ############
         # TODO Step 1: predict state x and estimation error covariance P to next timestep, save x and P in track
         ############
+        print('predict start')
 
-        pass
+        F = self.F()
+        Q = self.Q()
+
+        x = track.x
+        P = track.P
+        print('x\n', x)
+        print('P\n', P)
+
+        x = F * x # state prediction
+        P = F * P * F.transpose() + Q # covariance prediction
+
+        print('x-\n', x)
+        print('P-\n', P)
+
+        track.set_x(x)
+        track.set_P(P)
+
+        # pass
         
         ############
         # END student code
@@ -63,18 +107,54 @@ class Filter:
         ############
         # TODO Step 1: update state x and covariance P with associated measurement, save x and P in track
         ############
-        
+        print('update start')
+
+        x = track.x
+
+        H = meas.sensor.get_H(x)
+        print('H\n', H)
+
+        gamma = self.gamma(track, meas)
+
+        S = self.S(track, meas, H)
+
+        P = track.P
+        print('x-\n', x)
+        print('P-\n', P)
+
+        K = P * H.transpose() * np.linalg.inv(S) # Kalman gain
+        print('K\n', K)
+
+        x = x + K * gamma # state update
+
+        I = np.identity(self.dim_state)
+        P = (I - K * H) * P # covariance update
+
+        print('x+\n', x)
+        print('P+\n', P)
+
+        track.set_x(x)
+        track.set_P(P)
         ############
         # END student code
-        ############ 
+
+        ############
+        # Note: update width, length, height, rotation
         track.update_attributes(meas)
-    
+
     def gamma(self, track, meas):
         ############
         # TODO Step 1: calculate and return residual gamma
         ############
+        x = track.x
 
-        return 0
+        z = meas.z
+        hx = meas.sensor.get_hx(x)
+
+        gamma = z - hx  # residual
+        print('gamma\n', gamma)
+        return gamma
+        # return 0
         
         ############
         # END student code
@@ -84,8 +164,14 @@ class Filter:
         ############
         # TODO Step 1: calculate and return covariance of residual S
         ############
+        P = track.P
 
-        return 0
+        R = meas.R
+
+        S = H * P * H.transpose() + R  # covariance of residual
+        print('S\n', S)
+        return S
+        # return 0
         
         ############
         # END student code

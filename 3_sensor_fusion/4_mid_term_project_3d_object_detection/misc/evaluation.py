@@ -86,7 +86,7 @@ def plot_tracks(fig, ax, ax2, track_list, meas_list, lidar_labels, lidar_labels_
             # transform from vehicle to camera coordinates
             pos_veh = np.ones((4, 1)) # homogeneous coordinates
             pos_veh[0:3] = track.x[0:3] 
-            pos_sens = camera.veh_to_sens*pos_veh # transform from vehicle to sensor coordinates
+            pos_sens = camera.veh_to_sens * pos_veh # transform from vehicle to sensor coordinates
             x = pos_sens[0]
             y = pos_sens[1]
             z = pos_sens[2] 
@@ -105,14 +105,14 @@ def plot_tracks(fig, ax, ax2, track_list, meas_list, lidar_labels, lidar_labels_
             corners_3D = np.array([x_corners, y_corners, z_corners])
             
             # rotate
-            corners_3D = R*corners_3D
+            corners_3D = R * corners_3D
 
             # translate
             corners_3D += np.array([x, y, z]).reshape((3, 1))
-            # print ( 'corners_3d', corners_3D)
+            # print ('corners_3d', corners_3D)
             
             # remove bounding boxes that include negative x, projection makes no sense
-            if np.any(corners_3D[0,:] <= 0):
+            if np.any(corners_3D[0, :] <= 0):
                 continue
             
             # project to image
@@ -128,7 +128,7 @@ def plot_tracks(fig, ax, ax2, track_list, meas_list, lidar_labels, lidar_labels_
             paths_2D = np.transpose(corners_2D[:, draw_line_indices])
             # print ( 'paths_2D', paths_2D)
             
-            codes = [Path.LINETO]*paths_2D.shape[0]
+            codes = [Path.LINETO] * paths_2D.shape[0]
             codes[0] = Path.MOVETO
             path = Path(paths_2D, codes)
                 
