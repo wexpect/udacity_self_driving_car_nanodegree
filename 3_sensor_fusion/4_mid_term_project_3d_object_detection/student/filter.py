@@ -152,7 +152,11 @@ class Filter:
         hx = meas.sensor.get_hx(x)
 
         gamma = z - hx  # residual
+
+        print('z\n', z)
+        print('hx\n', hx)
         print('gamma\n', gamma)
+
         return gamma
         # return 0
         

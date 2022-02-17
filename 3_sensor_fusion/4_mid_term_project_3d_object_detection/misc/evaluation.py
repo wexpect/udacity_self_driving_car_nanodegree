@@ -154,7 +154,16 @@ def plot_tracks(fig, ax, ax2, track_list, meas_list, lidar_labels, lidar_labels_
     ax.set_xlabel('y [m]')
     ax.set_ylabel('x [m]')
     ax.set_aspect('equal')
+
+
+
+
     ax.set_ylim(configs_det.lim_x[0], configs_det.lim_x[1]) # x forward, y left in vehicle coordinates
+    # ax.set_ylim(-100, configs_det.lim_x[1]) # x forward, y left in vehicle coordinates
+
+
+
+
     ax.set_xlim(-configs_det.lim_y[1], -configs_det.lim_y[0])
     # correct x ticks (positive to the left)
     ticks_x = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(-x) if x!=0 else '{0:g}'.format(x))
@@ -170,6 +179,7 @@ def plot_tracks(fig, ax, ax2, track_list, meas_list, lidar_labels, lidar_labels_
     ax.legend(handle_list, label_list, loc='center left', shadow=True, fontsize='x-large', bbox_to_anchor=(0.8, 0.5))
 
     plt.pause(0.01)
+    # plt.pause(1)
     # plt.pause(5)
     
     return fig, ax, ax2

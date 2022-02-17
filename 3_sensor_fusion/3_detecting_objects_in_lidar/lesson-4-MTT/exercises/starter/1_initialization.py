@@ -57,7 +57,7 @@ class Measurement:
                            [np.sin(phi), np.cos(phi), 0],
                            [0, 0, 1]])
 
-        # coordiante transformation matrix from sensor to vehicle coordinates
+        # coordinate transformation matrix from sensor to vehicle coordinates
         self.sens_to_veh = np.matrix(np.identity(4))
         self.sens_to_veh[0:3, 0:3] = M_rot
         self.sens_to_veh[0:3, 3] = t

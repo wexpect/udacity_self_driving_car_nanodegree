@@ -27,7 +27,9 @@ class Sensor:
         self.name = name
         if name == 'lidar':
             self.dim_meas = 3
-            self.sens_to_veh = np.matrix(np.identity((4))) # transformation sensor to vehicle coordinates equals identity matrix because lidar detections are already in vehicle coordinates
+            # transformation sensor to vehicle coordinates equals identity matrix
+            # because TOP lidar detections are already in vehicle coordinates
+            self.sens_to_veh = np.matrix(np.identity((4)))
             self.fov = [-np.pi/2, np.pi/2] # angle of field of view in radians
         
         elif name == 'camera':

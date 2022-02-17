@@ -25,6 +25,8 @@ import misc.params as params
 class Track:
     '''Track class with state, covariance, id, score'''
     def __init__(self, meas, id):
+        print('Track init')
+
         print('creating track no.', id)
         M_rot = meas.sensor.sens_to_veh[0:3, 0:3] # rotation matrix from sensor to vehicle coordinates
         
@@ -35,25 +37,57 @@ class Track:
         # - initialize track state and track score with appropriate values
         ############
 
-        self.x = np.matrix([
-            [49.53980697],
-            [ 3.41006279],
-            [ 0.91790581],
-            [ 0.        ],
-            [ 0.        ],
-            [ 0.        ]
+        # step 1
+        # self.x = np.matrix([
+        #     [49.53980697],
+        #     [ 3.41006279],
+        #     [ 0.91790581],
+        #     [ 0.        ],
+        #     [ 0.        ],
+        #     [ 0.        ]
+        # ])
+        # self.P = np.matrix([
+        #     [9.0e-02, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00],
+        #     [0.0e+00, 9.0e-02, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00],
+        #     [0.0e+00, 0.0e+00, 6.4e-03, 0.0e+00, 0.0e+00, 0.0e+00],
+        #     [0.0e+00, 0.0e+00, 0.0e+00, 2.5e+03, 0.0e+00, 0.0e+00],
+        #     [0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 2.5e+03, 0.0e+00],
+        #     [0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 2.5e+01]
+        # ])
+        #
+        # self.state = 'confirmed'
+        # self.score = 0
+
+
+        # step 2
+        self.x = np.zeros((6, 1))
+        self.P = np.zeros((6, 6))
+
+        print('z\n', meas.z)
+
+        z_1 = np.ones((4, 1))
+        z_1[0:3] = meas.z
+        position_1 = meas.sensor.sens_to_veh * z_1
+        self.x[0:3] = position_1[0:3]
+        print('x\n', self.x)
+
+        P_pos = M_rot * meas.R * M_rot.transpose()
+
+        P_vel = np.matrix([
+            [params.sigma_p44**2,   0,                      0],
+            [0,                     params.sigma_p55**2,   0],
+            [0,                     0,                      params.sigma_p66**2]
         ])
-        self.P = np.matrix([
-            [9.0e-02, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00],
-            [0.0e+00, 9.0e-02, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00],
-            [0.0e+00, 0.0e+00, 6.4e-03, 0.0e+00, 0.0e+00, 0.0e+00],
-            [0.0e+00, 0.0e+00, 0.0e+00, 2.5e+03, 0.0e+00, 0.0e+00],
-            [0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 2.5e+03, 0.0e+00],
-            [0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 2.5e+01]
-        ])
-        self.state = 'confirmed'
-        self.score = 0
-        
+
+        self.P[0:3, 0:3] = P_pos
+        self.P[3:6, 3:6] = P_vel
+        print('P\n', self.P)
+
+        self.state = 'initialized'
+        self.score = 1. / params.window
+        print('state', self.state)
+        print('score', self.score)
+
         ############
         # END student code
         ############ 
@@ -79,15 +113,16 @@ class Track:
         # use exponential sliding average to estimate dimensions and orientation
         if meas.sensor.name == 'lidar':
             c = params.weight_dim
+
+            self.height = c * meas.height + (1 - c) * self.height
             self.width = c * meas.width + (1 - c) * self.width
             self.length = c * meas.length + (1 - c) * self.length
-            self.height = c * meas.height + (1 - c) * self.height
 
             M_rot = meas.sensor.sens_to_veh
             self.yaw = np.arccos(M_rot[0,0] * np.cos(meas.yaw) + M_rot[0,1] * np.sin(meas.yaw)) # transform rotation from sensor to vehicle coordinates
         
         
-###################        
+###################
 
 class Trackmanagement:
     '''Track manager with logic for initializing and deleting objects'''
@@ -103,7 +138,8 @@ class Trackmanagement:
         ############
         # TODO Step 2: implement track management:
         # - decrease the track score for unassigned tracks
-        # - delete tracks if the score is too low or P is too big (check params.py for parameters that might be helpful, but
+        # - delete tracks if the score is too low or P is too big
+        # (check params.py for parameters that might be helpful, but
         # feel free to define your own parameters)
         ############
         
@@ -112,20 +148,52 @@ class Trackmanagement:
             track = self.track_list[i]
             # check visibility    
             if meas_list: # if not empty
+                '''
+                NOTE: need to consider if track is inside FOV or not:
+                
+                1. if inside FOV, track score can change here, and track can be deleted below when P > max_P.
+               
+                2. if outside FOV, track score will not change here, and track can be deleted below when P > max_P.
+                After the object has disappeared from the visible range, it might take some time until the track is deleted. 
+                This is okay because in theory the object is still there, so the track management tries to predict 
+                the track further on. Just make sure that the track is deleted eventually.                
+                
+                '''
+
                 if meas_list[0].sensor.in_fov(track.x):
                     # your code goes here
-                    pass 
+                    # pass
+                    print('decrease score, track', track.id)
+                    print('before', track.score)
+                    track.score = np.max([0, track.score - (1. / params.window)])
+                    print('after', track.score)
 
-        # delete old tracks   
+        # delete old tracks
+        for i in unassigned_tracks:
+            track = self.track_list[i]
+            print('for unassigned tracks, decide if to delete track', track.id)
+            print('state', track.state)
+            print('score', track.score)
+            print('P[0,0]', track.P[0, 0])
+            print('P[1,1]', track.P[1, 1])
+
+            if track.state == 'confirmed':
+                if (track.score < params.delete_threshold) | (track.P[0,0] > params.max_P) | (track.P[1,1] > params.max_P):
+                    self.delete_track(track)
+            if (track.state == 'initialized') | (track.state == 'tentative'):
+                if (track.score < (1. / params.window)) | (track.P[0,0] > params.max_P) | (track.P[1,1] > params.max_P):
+                    self.delete_track(track)
 
         ############
         # END student code
         ############ 
             
         # initialize new track with unassigned measurement
+        # NOTE: here it only initialize new track with lidar measurements
         for j in unassigned_meas: 
             if meas_list[j].sensor.name == 'lidar': # only initialize with lidar measurements
                 self.init_track(meas_list[j])
+
             
     def addTrackToList(self, track):
         self.track_list.append(track)
@@ -146,9 +214,22 @@ class Trackmanagement:
         # - increase track score
         # - set track state to 'tentative' or 'confirmed'
         ############
+        # pass
+        print('handle_updated_track', track.id)
 
-        pass
-        
+        print('increase score')
+        print('before', track.score)
+        track.score = np.min([1, track.score + (1. / params.window)])
+        print('after', track.score)
+
+        print('update state')
+        print('before', track.state)
+        if track.score >= params.confirmed_threshold:
+            track.state = 'confirmed'
+        elif track.score > (1. / params.window):
+            track.state = 'tentative'
+        print('after', track.state)
+
         ############
         # END student code
-        ############ 
+        ############

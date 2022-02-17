@@ -48,7 +48,8 @@ class Association:
         ############
         # TODO: return True if measurement lies inside gate, otherwise return False
         ############
-        val = chi2.ppf(0.95, 2)
+        degree_of_freedom = 2
+        val = chi2.ppf(0.95, degree_of_freedom)
         print('MHD', MHD, 'val', val)
 
         if float(MHD) <= val:

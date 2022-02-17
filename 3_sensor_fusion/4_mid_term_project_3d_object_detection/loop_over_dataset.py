@@ -59,7 +59,11 @@ model = "darknet"
 # sequence = "1"
 
 # final project
-sequence = "2"
+# # for step 1 and step 2
+# sequence = "2"
+
+# for step 3
+sequence = "1"
 
 
 ## Select Waymo Open Dataset file and frame numbers
@@ -83,7 +87,15 @@ data_filename = data_filenames[int(sequence)]
 
 # final project
 # show_only_frames = [150, 155]
-show_only_frames = [150, 200]
+
+# step 1
+# show_only_frames = [150, 200]
+
+# step 2
+# show_only_frames = [65, 100]
+
+# step 3
+show_only_frames = [0, 200]
 
 
 
@@ -122,7 +134,15 @@ configs_det.use_labels_as_objects = False
 # for final project
 ## Uncomment this setting to restrict the y-range in the final project
 # configs_det.lim_y = [-25, 25]
-configs_det.lim_y = [-5, 10]
+
+# step 1
+# configs_det.lim_y = [-5, 10]
+
+# step 2
+# configs_det.lim_y = [-5, 15]
+
+# step 3
+configs_det.lim_y = [-25, 25]
 
 
 
@@ -472,6 +492,8 @@ while True:
 
             # preprocess camera detections
             meas_list_cam = []
+
+            # NOTE: here only use Front camera
             for label in frame.camera_labels[0].labels:
                 if(label.type == label_pb2.Label.Type.TYPE_VEHICLE):
                 
