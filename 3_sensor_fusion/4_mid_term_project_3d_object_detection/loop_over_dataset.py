@@ -43,7 +43,7 @@ from student.filter import Filter
 from student.trackmanagement import Trackmanagement
 from student.association import Association
 from student.measurements import Sensor, Measurement
-from misc.evaluation import plot_tracks, plot_rmse, make_movie
+from misc.evaluation import plot_tracks, plot_rmse, make_movie, make_movie_v2
 import misc.params as params 
  
 ##################
@@ -62,7 +62,7 @@ model = "darknet"
 # # for step 1 and step 2
 # sequence = "2"
 
-# for step 3
+# for step 3 and 4
 sequence = "1"
 
 
@@ -94,7 +94,7 @@ data_filename = data_filenames[int(sequence)]
 # step 2
 # show_only_frames = [65, 100]
 
-# step 3
+# step 3 and 4
 show_only_frames = [0, 200]
 
 
@@ -141,7 +141,7 @@ configs_det.use_labels_as_objects = False
 # step 2
 # configs_det.lim_y = [-5, 15]
 
-# step 3
+# step 3 and 4
 configs_det.lim_y = [-25, 25]
 
 
@@ -194,7 +194,8 @@ exec_tracking = ['perform_tracking']
 # exec_visualization = ['show_objects_and_labels_in_bev_and_camera']
 
 # for final project
-exec_visualization = ['show_tracks']
+# exec_visualization = ['show_tracks']
+exec_visualization = ['show_tracks', 'make_tracking_movie']
 
 
 
@@ -230,6 +231,10 @@ while True:
 
         #################################
         ## Perform 3D object detection
+
+        # Note: Note that for simplicity, we only use one front lidar and one front camera
+        # from the Waymo Open Dataset.In reality, there are many additional sensors
+        # available that we could use.
 
         ## Extract calibration data and front camera image from frame
         lidar_name = dataset_pb2.LaserName.TOP
@@ -492,12 +497,15 @@ while True:
 
             # preprocess camera detections
             meas_list_cam = []
-
             # NOTE: here only use Front camera
             for label in frame.camera_labels[0].labels:
                 if(label.type == label_pb2.Label.Type.TYPE_VEHICLE):
                 
                     box = label.box
+                    # print('label.box', box)
+                    # NOTE: seems is in image coordinate
+                    # box = center_x: 716.85465, center_y: 720.0126, width: 54.31673999999998, length: 80.21192999999994
+
                     # use camera labels as measurements and add some random noise
                     z = [box.center_x, box.center_y, box.width, box.length]
                     z[0] = z[0] + np.random.normal(0, params.sigma_cam_i) 
@@ -513,11 +521,11 @@ while True:
                 track.set_t((cnt_frame - 1) * params.dt)  # save next timestamp
                 
             # associate all lidar measurements to all tracks
-            print('associate lidar measurements to all tracks')
+            print('\nassociate lidar measurements to all tracks')
             association.associate_and_update(manager, meas_list_lidar, KF)
             
             # associate all camera measurements to all tracks
-            print('associate camera measurements to all tracks')
+            print('\nassociate camera measurements to all tracks')
             association.associate_and_update(manager, meas_list_cam, KF)
             
             # save results for evaluation
@@ -535,6 +543,7 @@ while True:
                                         valid_label_flags, image, camera, configs_det)
                 if 'make_tracking_movie' in exec_list:
                     # save track plots to file
+                    # fname = results_fullpath + 'tracking%03d.png' % cnt_frame
                     fname = results_fullpath + '/tracking%03d.png' % cnt_frame
                     print('Saving frame', fname)
                     fig.savefig(fname)
@@ -561,4 +570,5 @@ if 'show_tracks' in exec_list:
 
 ## Make movie from tracking results    
 if 'make_tracking_movie' in exec_list:
-    make_movie(results_fullpath)
+    # make_movie(results_fullpath)
+    make_movie_v2(results_fullpath)

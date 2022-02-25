@@ -25,7 +25,7 @@ import misc.params as params
 class Track:
     '''Track class with state, covariance, id, score'''
     def __init__(self, meas, id):
-        print('Track init')
+        print('init track start')
 
         print('creating track no.', id)
         M_rot = meas.sensor.sens_to_veh[0:3, 0:3] # rotation matrix from sensor to vehicle coordinates
@@ -97,8 +97,10 @@ class Track:
         self.width = meas.width
         self.length = meas.length
         self.height = meas.height
-        self.yaw =  np.arccos(M_rot[0,0]*np.cos(meas.yaw) + M_rot[0,1]*np.sin(meas.yaw)) # transform rotation from sensor to vehicle coordinates
+        self.yaw = np.arccos(M_rot[0,0]*np.cos(meas.yaw) + M_rot[0,1]*np.sin(meas.yaw)) # transform rotation from sensor to vehicle coordinates
         self.t = meas.t
+
+        print('init track end')
 
     def set_x(self, x):
         self.x = x
@@ -111,6 +113,7 @@ class Track:
         
     def update_attributes(self, meas):
         # use exponential sliding average to estimate dimensions and orientation
+        # Note: only use lidar measurement
         if meas.sensor.name == 'lidar':
             c = params.weight_dim
 
@@ -133,7 +136,14 @@ class Trackmanagement:
         self.result_list = []
         
     def manage_tracks(self, unassigned_tracks, unassigned_meas, meas_list):
-        print('manage_tracks start')
+        print('\nmanage_tracks start')
+
+        print('len(track_list)', len(self.track_list))
+        print('len(meas_list)', len(meas_list))
+
+        print('unassigned_tracks', unassigned_tracks)
+        print('unassigned_meas', unassigned_meas)
+
 
         ############
         # TODO Step 2: implement track management:
@@ -144,22 +154,23 @@ class Trackmanagement:
         ############
         
         # decrease score for unassigned tracks
+        print('\nfor unassigned tracks, decide if to update score')
         for i in unassigned_tracks:
+            print('i', i)
             track = self.track_list[i]
+            print('track.id', track.id)
             # check visibility    
             if meas_list: # if not empty
                 '''
                 NOTE: need to consider if track is inside FOV or not:
                 
-                1. if inside FOV, track score can change here, and track can be deleted below when P > max_P.
+                1. if track is inside FOV, track score can change here, and track can be deleted below when P > max_P.
                
-                2. if outside FOV, track score will not change here, and track can be deleted below when P > max_P.
+                2. if track is outside FOV, track score should remain the same, and track can be deleted below when P > max_P.
                 After the object has disappeared from the visible range, it might take some time until the track is deleted. 
                 This is okay because in theory the object is still there, so the track management tries to predict 
-                the track further on. Just make sure that the track is deleted eventually.                
-                
+                the track further on. Just make sure that the track is deleted eventually.                                
                 '''
-
                 if meas_list[0].sensor.in_fov(track.x):
                     # your code goes here
                     # pass
@@ -169,9 +180,12 @@ class Trackmanagement:
                     print('after', track.score)
 
         # delete old tracks
+        print('\nfor unassigned tracks, decide if to delete track')
+        deleted_tracks = []
         for i in unassigned_tracks:
+            print('i', i)
             track = self.track_list[i]
-            print('for unassigned tracks, decide if to delete track', track.id)
+            print('track.id', track.id)
             print('state', track.state)
             print('score', track.score)
             print('P[0,0]', track.P[0, 0])
@@ -179,10 +193,15 @@ class Trackmanagement:
 
             if track.state == 'confirmed':
                 if (track.score < params.delete_threshold) | (track.P[0,0] > params.max_P) | (track.P[1,1] > params.max_P):
-                    self.delete_track(track)
+                    print('decide to delete')
+                    deleted_tracks.append(track)
             if (track.state == 'initialized') | (track.state == 'tentative'):
                 if (track.score < (1. / params.window)) | (track.P[0,0] > params.max_P) | (track.P[1,1] > params.max_P):
-                    self.delete_track(track)
+                    print('decide to delete')
+                    deleted_tracks.append(track)
+
+        for track in deleted_tracks:
+            self.delete_track(track)
 
         ############
         # END student code
@@ -194,6 +213,7 @@ class Trackmanagement:
             if meas_list[j].sensor.name == 'lidar': # only initialize with lidar measurements
                 self.init_track(meas_list[j])
 
+        print('manage_tracks end')
             
     def addTrackToList(self, track):
         self.track_list.append(track)
@@ -205,9 +225,9 @@ class Trackmanagement:
         self.addTrackToList(track)
 
     def delete_track(self, track):
-        print('deleting track no.', track.id)
         self.track_list.remove(track)
-        
+        print('deleted track no.', track.id)
+
     def handle_updated_track(self, track):      
         ############
         # TODO Step 2: implement track management for updated tracks:

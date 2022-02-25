@@ -108,8 +108,10 @@ class Filter:
         # TODO Step 1: update state x and covariance P with associated measurement, save x and P in track
         ############
         print('update start')
+        print(meas.sensor.name, 'z\n', meas.z)
 
         x = track.x
+        print('x-\n', x)
 
         H = meas.sensor.get_H(x)
         print('H\n', H)
@@ -119,7 +121,6 @@ class Filter:
         S = self.S(track, meas, H)
 
         P = track.P
-        print('x-\n', x)
         print('P-\n', P)
 
         K = P * H.transpose() * np.linalg.inv(S) # Kalman gain
@@ -149,12 +150,12 @@ class Filter:
         x = track.x
 
         z = meas.z
+        print('z\n', meas.z)
+
         hx = meas.sensor.get_hx(x)
+        print('hx\n', hx)
 
         gamma = z - hx  # residual
-
-        print('z\n', z)
-        print('hx\n', hx)
         print('gamma\n', gamma)
 
         return gamma

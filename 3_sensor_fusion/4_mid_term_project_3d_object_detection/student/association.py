@@ -52,11 +52,11 @@ class Association:
         #     self.association_matrix = np.matrix([[0]])
 
 
-
         N = len(track_list)  # N tracks
         M = len(meas_list)  # M measurements
         self.unassigned_tracks = list(range(N))
         self.unassigned_meas = list(range(M))
+        print('N', N, ', M', M)
 
         # initialize association matrix
         self.association_matrix = np.inf * np.ones((N, M))
@@ -69,8 +69,10 @@ class Association:
                 dist = self.MHD(track, meas, KF)
                 if self.gating(dist, meas.sensor):
                     self.association_matrix[i, j] = dist
+        print('association_matrix\n', self.association_matrix)
 
-        
+        print('associate end')
+
         ############
         # END student code
         ############ 
@@ -95,7 +97,9 @@ class Association:
         #
         # return update_track, update_meas
 
-        print('\nbefore')
+        print('\nget_closest_track_and_meas')
+
+        print('before')
         print('association_matrix\n', self.association_matrix)
         print('unassigned_tracks', self.unassigned_tracks)
         print('unassigned_meas', self.unassigned_meas)
@@ -143,10 +147,10 @@ class Association:
         print('MHD', MHD, 'val', val)
 
         if float(MHD) <= val:
-            print('inside gate\n')
+            print('inside gate')
             return True
         else:
-            print('out of gate\n')
+            print('out of gate')
             return False
 
         # pass
@@ -159,15 +163,16 @@ class Association:
         ############
         # TODO Step 3: calculate and return Mahalanobis distance
         ############
-
         # calc Mahalanobis distance
+        print('calculate MHD')
+
+        gamma = KF.gamma(track, meas)
+
         H = meas.sensor.get_H(track.x)
-
-        gamma = meas.z - H * track.x
-
-        S = H * track.P * H.transpose() + meas.R
+        S = KF.S(track, meas, H)
 
         MHD = gamma.transpose() * np.linalg.inv(S) * gamma  # Mahalanobis distance formula
+        print('MHD', MHD)
         return MHD
 
         # pass
@@ -211,4 +216,4 @@ class Association:
 
         print('after associate_and_update, track_manager.track_list contains')
         for track in manager.track_list:            
-            print('track', track.id, 'score =', track.score)
+            print('track', track.id, 'score', track.score)

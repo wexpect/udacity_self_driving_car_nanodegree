@@ -23,6 +23,8 @@ from matplotlib.path import Path
 from matplotlib import colors
 from matplotlib.transforms import Affine2D
 import matplotlib.ticker as ticker
+from matplotlib import animation
+
 import os
 import cv2
 
@@ -39,6 +41,7 @@ def plot_tracks(fig, ax, ax2, track_list, meas_list, lidar_labels, lidar_labels_
                       image, camera, configs_det, state=None):
     
     # plot image
+    # Note: ax2 is image, ax is top view of tracking situation
     ax.cla()
     ax2.cla()
     # ax2.imshow(image)
@@ -231,8 +234,7 @@ def plot_rmse(manager, all_labels, configs_det):
             # plot RMSE
             ax.plot(time, rmse, marker='x', label='RMSE track ' + str(track_id) + '\n(mean: ' 
                     + '{:.2f}'.format(rmse_sum) + ')')
-
-    print('mean RMSE', rmse_sum)
+            print('track', track_id, ', mean RMSE', rmse_sum)
 
     # maximize window     
     mng = plt.get_current_fig_manager()
@@ -255,7 +257,8 @@ def make_movie(path):
     height, width, layers = frame.shape
 
     # save with 10fps to result dir
-    video = cv2.VideoWriter(os.path.join(path, 'my_tracking_results.avi'), 0, 10, (width,height))
+    # video = cv2.VideoWriter(os.path.join(path, 'my_tracking_results.avi'), 0, 10, (width,height))
+    video = cv2.VideoWriter(os.path.join(path, 'my_tracking_results.mp4'), cv2.VideoWriter_fourcc(*'MP4V'), 10, (width,height))
 
     for image in images:
         fname = os.path.join(path, image)
@@ -264,3 +267,35 @@ def make_movie(path):
 
     cv2.destroyAllWindows()
     video.release()
+
+
+def make_movie_v2(path):
+    # now we can create the animation
+    print('make_movie_v2 start')
+
+    images = []
+    for file_name in sorted(os.listdir(path)):
+        if file_name.endswith(".png"):
+            image = plt.imread(os.path.join(path, file_name))
+            images.append(image)
+
+    f = plt.figure()
+    f.subplots_adjust(left=0, bottom=0, right=1, top=1, wspace=None, hspace=None)
+    ax = plt.subplot(111)
+    ax.axis('off')
+    im_obj = ax.imshow(images[0])
+
+    def animate(idx):
+        image = images[idx]
+        im_obj.set_data(image)
+
+    anim = animation.FuncAnimation(f, animate, frames=len(images))
+
+    output_path = os.path.join(path, 'my_tracking_results.gif')
+    anim.save(output_path, fps=10, dpi=300)
+
+    for file_name in sorted(os.listdir(path)):
+        if file_name.endswith(".png"):
+            os.remove(os.path.join(path, file_name))  # clean up
+
+    print('make_movie_v2 end')
