@@ -112,7 +112,14 @@ venv.bak/
 *.tar.gz
 
 
-*.gif
+
+animation_820_50score_1fps.gif
+animation_2552_20score_5fps.gif
+animation_5725_30score_5fps.gif
+
+my_tracking_results.gif
+
+
 
 .vscode
 
