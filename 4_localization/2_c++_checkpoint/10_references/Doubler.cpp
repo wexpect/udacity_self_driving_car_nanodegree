@@ -1,4 +1,7 @@
-// https://www.geeksforgeeks.org/references-in-c/
+/* 
+References
+https://www.geeksforgeeks.org/references-in-c/
+ */
 
 #include "Doubler.h"
 

@@ -47,3 +47,58 @@ int main() {
     
   return 0;
 }
+
+/* 
+target_speed = 10
+Costs for (intended_lane, final_lane):
+---------------------------------------------------------
+intended_lane = 3, intended_speed = 9
+final_lane = 3, final_speed = 9
+The cost is 0 for (3, 3)
+intended_lane = 2, intended_speed = 8
+final_lane = 3, final_speed = 9
+The cost is 0 for (2, 3)
+intended_lane = 2, intended_speed = 8
+final_lane = 2, final_speed = 8
+The cost is 0 for (2, 2)
+intended_lane = 1, intended_speed = 7
+final_lane = 2, final_speed = 8
+The cost is 0 for (1, 2)
+intended_lane = 1, intended_speed = 7
+final_lane = 1, final_speed = 7
+The cost is 0 for (1, 1)
+intended_lane = 0, intended_speed = 6
+final_lane = 1, final_speed = 7
+The cost is 0 for (0, 1)
+intended_lane = 0, intended_speed = 6
+final_lane = 0, final_speed = 6
+The cost is 0 for (0, 0)
+
+
+(env) Ruis-MacBook-Pro-15:16_implement_a_second_cost_functin_in_c++ ruiwang$ g++ -std=c++11 *.cpp -o output.out
+(env) Ruis-MacBook-Pro-15:16_implement_a_second_cost_functin_in_c++ ruiwang$ ./output.out
+target_speed = 10
+Costs for (intended_lane, final_lane):
+---------------------------------------------------------
+intended_lane = 3, intended_speed = 9
+final_lane = 3, final_speed = 9
+The cost is 0.1 for (3, 3)
+intended_lane = 2, intended_speed = 8
+final_lane = 3, final_speed = 9
+The cost is 0.15 for (2, 3)
+intended_lane = 2, intended_speed = 8
+final_lane = 2, final_speed = 8
+The cost is 0.2 for (2, 2)
+intended_lane = 1, intended_speed = 7
+final_lane = 2, final_speed = 8
+The cost is 0.25 for (1, 2)
+intended_lane = 1, intended_speed = 7
+final_lane = 1, final_speed = 7
+The cost is 0.3 for (1, 1)
+intended_lane = 0, intended_speed = 6
+final_lane = 1, final_speed = 7
+The cost is 0.35 for (0, 1)
+intended_lane = 0, intended_speed = 6
+final_lane = 0, final_speed = 6
+The cost is 0.4 for (0, 0)
+ */
