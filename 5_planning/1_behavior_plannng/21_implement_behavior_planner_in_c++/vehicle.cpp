@@ -58,7 +58,7 @@ vector<Vehicle> Vehicle::choose_next_state(map<int, vector<Vehicle>> &prediction
   vector<string> possible_successor_states = successor_states();
 
   vector<Vehicle> best_trajectory;
-  float best_cost = 9999;  
+  float best_cost = 99999999;  
   for(auto possible_successor_state : possible_successor_states){
     vector<Vehicle> trajectory = generate_trajectory(possible_successor_state, predictions);    
     if(trajectory.size() > 0){

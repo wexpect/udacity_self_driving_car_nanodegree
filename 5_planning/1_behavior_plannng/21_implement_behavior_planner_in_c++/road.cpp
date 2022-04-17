@@ -65,6 +65,7 @@ void Road::populate_traffic() {
         vehicle_just_added = false;
       }
       
+      // NOTE: here the position of each vehicle is random
       if (((double) rand() / (RAND_MAX)) < this->density) {
         Vehicle vehicle = Vehicle(l,s,lane_speed,0);
         vehicle.state = "CS"; // constant speed
