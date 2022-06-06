@@ -14,6 +14,7 @@ class Vehicle {
   // Constructors
   Vehicle();
   // Note: seems v = velocity, a = acceleration
+  // CS, constant_speed
   Vehicle(int lane, float s, float v, float a, string state="CS");
 
   // Destructor
