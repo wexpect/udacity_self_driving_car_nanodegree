@@ -1,4 +1,17 @@
-// g++ -std=c++11 *.cpp -o output.out
+/*
+g++ -std=c++11 *.cpp -o output.out
+
+./output.out
+*/
+
+
+/* 
+command click, go to definition
+
+control - shift , go forward
+control - , go back
+
+ */
 
 
 /* 
@@ -104,13 +117,6 @@ is the scope resolution operator, and allows you to statically traverse scopes s
 
 
 
-/* 
-command click, go to definition
-
-control - shift , go forward
-control - , go back
-
- */
 
 
 
