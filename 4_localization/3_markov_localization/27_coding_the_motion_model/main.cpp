@@ -68,6 +68,7 @@ float motion_model(float pseudo_position, float movement, vector<float> priors,
     std::cout << "\npseudo position: " << pseudo_position << std::endl;
 
     for(int i = 0; i < map_size; ++i){
+        // i is pre_pseudo_position
         float belief_state_prob = priors[i];
 
         float delta_position = pseudo_position - i;
@@ -76,7 +77,7 @@ float motion_model(float pseudo_position, float movement, vector<float> priors,
 
         float motion_model_prob = transition_model_prob * belief_state_prob;
 
-        std::cout << "prior position: " << i << ", delta_position: " << delta_position << ", movement: " << movement << ", control_stdev: " << control_stdev << ", transition_model_prob: " << transition_model_prob << ", belief_state_prob: " << belief_state_prob << ", motion_model_prob: " << motion_model_prob << std::endl;
+        std::cout << "pre_pseudo_position: " << i << ", delta_position: " << delta_position << ", movement: " << movement << ", control_stdev: " << control_stdev << ", transition_model_prob: " << transition_model_prob << ", belief_state_prob: " << belief_state_prob << ", motion_model_prob: " << motion_model_prob << std::endl;
 
         position_prob += motion_model_prob;
     }
@@ -136,727 +137,727 @@ vector<float> initialize_priors(int map_size, vector<float> landmark_positions,
 24, 0
 
 pseudo position: 0
-prior position: 0, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 5, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 6, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 7, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
-prior position: 10, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
-prior position: 11, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
-prior position: 12, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 20, delta_position: -20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 21, delta_position: -21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 22, delta_position: -22, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -23, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -24, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 5, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 6, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 7, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
+pre_pseudo_position: 10, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
+pre_pseudo_position: 11, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
+pre_pseudo_position: 12, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 20, delta_position: -20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 21, delta_position: -21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 22, delta_position: -22, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -23, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -24, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 1.65867e-07
 0	1.65867e-07
 
 pseudo position: 1
-prior position: 0, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 5, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 6, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 7, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
-prior position: 10, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
-prior position: 11, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
-prior position: 12, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 20, delta_position: -19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 21, delta_position: -20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 22, delta_position: -21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -22, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -23, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 5, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 6, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 7, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
+pre_pseudo_position: 10, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
+pre_pseudo_position: 11, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
+pre_pseudo_position: 12, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 20, delta_position: -19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 21, delta_position: -20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 22, delta_position: -21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -22, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -23, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 1.50359e-05
 1	1.50359e-05
 
 pseudo position: 2
-prior position: 0, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 5, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 6, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 7, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
-prior position: 10, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
-prior position: 11, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
-prior position: 12, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 20, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 21, delta_position: -19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 22, delta_position: -20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -22, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 5, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 6, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 7, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
+pre_pseudo_position: 10, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
+pre_pseudo_position: 11, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
+pre_pseudo_position: 12, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 20, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 21, delta_position: -19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 22, delta_position: -20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -22, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.000507463
 2	0.000507463
 
 pseudo position: 3
-prior position: 0, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 5, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 6, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 7, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 10, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
-prior position: 11, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
-prior position: 12, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 20, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 21, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 22, delta_position: -19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 5, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 6, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 7, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 10, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
+pre_pseudo_position: 11, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
+pre_pseudo_position: 12, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 20, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 21, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 22, delta_position: -19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.00650629
 3	0.00650629
 
 pseudo position: 4
-prior position: 0, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 5, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 6, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 7, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 10, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 11, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
-prior position: 12, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 20, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 21, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 22, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 5, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 6, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 7, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 10, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 11, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
+pre_pseudo_position: 12, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 20, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 21, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 22, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0333771
 4	0.0333771
 
 pseudo position: 5
-prior position: 0, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
-prior position: 5, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 6, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 7, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 10, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 11, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 12, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 20, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 21, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 22, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
+pre_pseudo_position: 5, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 6, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 7, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 10, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 11, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 12, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 20, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 21, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 22, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0772117
 5	0.0772117
 
 pseudo position: 6
-prior position: 0, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 5, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
-prior position: 6, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 7, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 10, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 11, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 12, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
-prior position: 20, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 21, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 22, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 5, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
+pre_pseudo_position: 6, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 7, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 10, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 11, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 12, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
+pre_pseudo_position: 20, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 21, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 22, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0981132
 6	0.0981132
 
 pseudo position: 7
-prior position: 0, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 5, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 6, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
-prior position: 7, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 10, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 11, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 12, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
-prior position: 20, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
-prior position: 21, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 22, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 5, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 6, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
+pre_pseudo_position: 7, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 10, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 11, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 12, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
+pre_pseudo_position: 20, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
+pre_pseudo_position: 21, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 22, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.077719
 7	0.077719
 
 pseudo position: 8
-prior position: 0, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 5, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 6, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 7, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 10, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 11, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 12, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
-prior position: 20, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
-prior position: 21, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
-prior position: 22, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 5, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 6, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 7, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 10, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 11, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 12, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
+pre_pseudo_position: 20, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
+pre_pseudo_position: 21, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
+pre_pseudo_position: 22, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0398834
 8	0.0398834
 
 pseudo position: 9
-prior position: 0, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 5, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 6, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 7, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 10, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 11, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 12, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
-prior position: 20, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
-prior position: 21, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
-prior position: 22, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 5, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 6, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 7, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 10, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 11, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 12, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
+pre_pseudo_position: 20, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
+pre_pseudo_position: 21, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
+pre_pseudo_position: 22, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -15, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0398834
 9	0.0398834
 
 pseudo position: 10
-prior position: 0, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 5, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 6, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 7, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
-prior position: 10, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 11, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 12, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
-prior position: 20, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
-prior position: 21, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
-prior position: 22, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 5, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 6, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 7, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
+pre_pseudo_position: 10, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 11, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 12, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
+pre_pseudo_position: 20, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
+pre_pseudo_position: 21, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
+pre_pseudo_position: 22, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -14, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.077719
 10	0.077719
 
 pseudo position: 11
-prior position: 0, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 5, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 6, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 7, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 10, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
-prior position: 11, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 12, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
-prior position: 20, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
-prior position: 21, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
-prior position: 22, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 5, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 6, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 7, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 10, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
+pre_pseudo_position: 11, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 12, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
+pre_pseudo_position: 20, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
+pre_pseudo_position: 21, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
+pre_pseudo_position: 22, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -13, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0981132
 11	0.0981132
 
 pseudo position: 12
-prior position: 0, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 5, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 6, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 7, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 10, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 11, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
-prior position: 12, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
-prior position: 20, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
-prior position: 21, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
-prior position: 22, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 5, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 6, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 7, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 10, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 11, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
+pre_pseudo_position: 12, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
+pre_pseudo_position: 20, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
+pre_pseudo_position: 21, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
+pre_pseudo_position: 22, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -12, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0772117
 12	0.0772117
 
 pseudo position: 13
-prior position: 0, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
-prior position: 5, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 6, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 7, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 10, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 11, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 12, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 20, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
-prior position: 21, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
-prior position: 22, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
+pre_pseudo_position: 5, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 6, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 7, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 10, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 11, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 12, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 20, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
+pre_pseudo_position: 21, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
+pre_pseudo_position: 22, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -11, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0333771
 13	0.0333771
 
 pseudo position: 14
-prior position: 0, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
-prior position: 5, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
-prior position: 6, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 7, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 10, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 11, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 12, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 20, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 21, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
-prior position: 22, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
+pre_pseudo_position: 5, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
+pre_pseudo_position: 6, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 7, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 10, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 11, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 12, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 20, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 21, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
+pre_pseudo_position: 22, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -10, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.00650629
 14	0.00650629
 
 pseudo position: 15
-prior position: 0, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
-prior position: 5, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
-prior position: 6, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
-prior position: 7, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 10, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 11, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 12, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 20, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 21, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 22, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
+pre_pseudo_position: 5, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
+pre_pseudo_position: 6, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
+pre_pseudo_position: 7, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 10, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 11, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 12, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 20, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 21, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 22, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -9, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.000507629
 15	0.000507629
 
 pseudo position: 16
-prior position: 0, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
-prior position: 5, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
-prior position: 6, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
-prior position: 7, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 10, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 11, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 12, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 20, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 21, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 22, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
+pre_pseudo_position: 5, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
+pre_pseudo_position: 6, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
+pre_pseudo_position: 7, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 10, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 11, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 12, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 20, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 21, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 22, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -8, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 3.00718e-05
 16	3.00718e-05
 
 pseudo position: 17
-prior position: 0, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
-prior position: 5, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
-prior position: 6, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
-prior position: 7, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 10, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 11, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 12, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 20, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 21, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
-prior position: 22, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
+pre_pseudo_position: 5, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
+pre_pseudo_position: 6, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
+pre_pseudo_position: 7, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 10, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 11, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 12, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 20, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 21, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0.111111, motion_model_prob: 1.65191e-07
+pre_pseudo_position: 22, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -7, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.000507629
 17	0.000507629
 
 pseudo position: 18
-prior position: 0, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
-prior position: 5, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
-prior position: 6, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
-prior position: 7, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
-prior position: 10, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 11, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
-prior position: 12, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 20, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 21, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 22, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
+pre_pseudo_position: 5, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
+pre_pseudo_position: 6, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
+pre_pseudo_position: 7, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
+pre_pseudo_position: 10, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 11, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0.111111, motion_model_prob: 6.75098e-10
+pre_pseudo_position: 12, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 20, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 21, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 22, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -6, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.00650629
 18	0.00650629
 
 pseudo position: 19
-prior position: 0, delta_position: 19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
-prior position: 5, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
-prior position: 6, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
-prior position: 7, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
-prior position: 10, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
-prior position: 11, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
-prior position: 12, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 20, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 21, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 22, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
+pre_pseudo_position: 5, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
+pre_pseudo_position: 6, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
+pre_pseudo_position: 7, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
+pre_pseudo_position: 10, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
+pre_pseudo_position: 11, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0.111111, motion_model_prob: 1.01497e-12
+pre_pseudo_position: 12, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 20, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 21, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 22, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -5, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0333771
 19	0.0333771
 
 pseudo position: 20
-prior position: 0, delta_position: 20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 5, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
-prior position: 6, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
-prior position: 7, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
-prior position: 10, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
-prior position: 11, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
-prior position: 12, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
-prior position: 20, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 21, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 22, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 5, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
+pre_pseudo_position: 6, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
+pre_pseudo_position: 7, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
+pre_pseudo_position: 10, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
+pre_pseudo_position: 11, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0.111111, motion_model_prob: 5.61363e-16
+pre_pseudo_position: 12, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
+pre_pseudo_position: 20, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 21, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 22, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -4, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0772116
 20	0.0772116
 
 pseudo position: 21
-prior position: 0, delta_position: 21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 5, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 6, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
-prior position: 7, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
-prior position: 10, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
-prior position: 11, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
-prior position: 12, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 20, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
-prior position: 21, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 22, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 5, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 6, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
+pre_pseudo_position: 7, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
+pre_pseudo_position: 10, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
+pre_pseudo_position: 11, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0.111111, motion_model_prob: 1.1422e-19
+pre_pseudo_position: 12, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 20, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
+pre_pseudo_position: 21, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 22, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -3, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0980982
 21	0.0980982
 
 pseudo position: 22
-prior position: 0, delta_position: 22, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 5, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 6, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 7, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
-prior position: 10, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
-prior position: 11, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
-prior position: 12, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 20, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 21, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
-prior position: 22, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 22, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 5, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 6, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 7, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
+pre_pseudo_position: 10, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
+pre_pseudo_position: 11, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0.111111, motion_model_prob: 8.54955e-24
+pre_pseudo_position: 12, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 20, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 21, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0.111111, motion_model_prob: 0.0443269
+pre_pseudo_position: 22, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -2, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0772116
 22	0.0772116
 
 pseudo position: 23
-prior position: 0, delta_position: 23, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 22, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 5, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 6, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 7, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
-prior position: 10, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
-prior position: 11, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
-prior position: 12, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 20, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 21, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
-prior position: 22, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 23, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 22, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 5, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 6, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 7, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
+pre_pseudo_position: 10, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
+pre_pseudo_position: 11, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0.111111, motion_model_prob: 2.35424e-28
+pre_pseudo_position: 12, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 20, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 21, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0.111111, motion_model_prob: 0.0268856
+pre_pseudo_position: 22, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: -1, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.0333771
 23	0.0333771
 
 pseudo position: 24
-prior position: 0, delta_position: 24, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 1, delta_position: 23, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 2, delta_position: 22, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 3, delta_position: 21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 4, delta_position: 20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 5, delta_position: 19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 6, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
-prior position: 7, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 8, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
-prior position: 9, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
-prior position: 10, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
-prior position: 11, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
-prior position: 12, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
-prior position: 13, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
-prior position: 14, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
-prior position: 15, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
-prior position: 16, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
-prior position: 17, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
-prior position: 18, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
-prior position: 19, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
-prior position: 20, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
-prior position: 21, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
-prior position: 22, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
-prior position: 23, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
-prior position: 24, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 0, delta_position: 24, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 1, delta_position: 23, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 2, delta_position: 22, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 3, delta_position: 21, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 4, delta_position: 20, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 5, delta_position: 19, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 6, delta_position: 18, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0.111111, motion_model_prob: 0
+pre_pseudo_position: 7, delta_position: 17, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 8, delta_position: 16, movement: 1, control_stdev: 1, transition_model_prob: 0, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 9, delta_position: 15, movement: 1, control_stdev: 1, transition_model_prob: 1.09301e-43, belief_state_prob: 0.111111, motion_model_prob: 1.26117e-44
+pre_pseudo_position: 10, delta_position: 14, movement: 1, control_stdev: 1, transition_model_prob: 7.99883e-38, belief_state_prob: 0.111111, motion_model_prob: 8.88759e-39
+pre_pseudo_position: 11, delta_position: 13, movement: 1, control_stdev: 1, transition_model_prob: 2.14638e-32, belief_state_prob: 0.111111, motion_model_prob: 2.38487e-33
+pre_pseudo_position: 12, delta_position: 12, movement: 1, control_stdev: 1, transition_model_prob: 2.11882e-27, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 13, delta_position: 11, movement: 1, control_stdev: 1, transition_model_prob: 7.6946e-23, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 14, delta_position: 10, movement: 1, control_stdev: 1, transition_model_prob: 1.02798e-18, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 15, delta_position: 9, movement: 1, control_stdev: 1, transition_model_prob: 5.05227e-15, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 16, delta_position: 8, movement: 1, control_stdev: 1, transition_model_prob: 9.13472e-12, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 17, delta_position: 7, movement: 1, control_stdev: 1, transition_model_prob: 6.07588e-09, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 18, delta_position: 6, movement: 1, control_stdev: 1, transition_model_prob: 1.48672e-06, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 19, delta_position: 5, movement: 1, control_stdev: 1, transition_model_prob: 0.00013383, belief_state_prob: 0.111111, motion_model_prob: 1.487e-05
+pre_pseudo_position: 20, delta_position: 4, movement: 1, control_stdev: 1, transition_model_prob: 0.00443185, belief_state_prob: 0.111111, motion_model_prob: 0.000492428
+pre_pseudo_position: 21, delta_position: 3, movement: 1, control_stdev: 1, transition_model_prob: 0.053991, belief_state_prob: 0.111111, motion_model_prob: 0.005999
+pre_pseudo_position: 22, delta_position: 2, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 23, delta_position: 1, movement: 1, control_stdev: 1, transition_model_prob: 0.398942, belief_state_prob: 0, motion_model_prob: 0
+pre_pseudo_position: 24, delta_position: 0, movement: 1, control_stdev: 1, transition_model_prob: 0.241971, belief_state_prob: 0, motion_model_prob: 0
 position_prob: 0.00650629
 24	0.00650629
 

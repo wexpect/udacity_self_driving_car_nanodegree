@@ -31,6 +31,7 @@ public:
 	*****************************************************************************/
 	static float normpdf(float x, float mu, float std) {
         float STATIC_ONE_OVER_SQRT_2PI = 1/sqrt(2*M_PI) ;
+		
 	    return (STATIC_ONE_OVER_SQRT_2PI/std)*exp(-0.5*pow((x-mu)/std,2));
 	}
 

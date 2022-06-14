@@ -127,5 +127,7 @@ my_tracking_results.gif
 2_computer_vision/7_object_detection_in_an_urban_environment/experiments/reference/ckpt-9.data-00000-of-00001
 2_computer_vision/7_object_detection_in_an_urban_environment/experiments/reference/exported/
 
+4_localization/4_intro_to_pcl/SFND_Lidar_Obstacle_Detection/build/
+
 *.pkl
 *.pth
