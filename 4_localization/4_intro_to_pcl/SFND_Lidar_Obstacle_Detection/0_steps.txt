@@ -1,0 +1,65 @@
+https://github.com/udacity/SFND_Lidar_Obstacle_Detection
+
+You will mostly be working out of two main files, which are environment.cpp and processPointClouds.cpp. The environment.cpp file contains the main function and will generate the runnable executable. The processPointClouds.cpp file will contain all your function placeholders to process the pcd.
+
+There are some other files worth mentioning, like sensors/lidar.h, which simulates lidar sensing and creates point cloud data. Also render.cpp and render.h which have functions for rendering objects onto the screen.
+
+Code Structure
+    Top-level CMakeLists.txt
+    Readme
+    src/
+        render/
+            box.h - this file has the struct definitions for box objects
+            render.h
+            render.cpp - this file, along with the header, define the classes and methods for rendering objects.
+        sensors/
+            data/ - this directory contains pcd data used in the course.
+            lidar.h - has functions using ray casting for creating pcd.
+        environment.cpp - the main file for using pcl viewer and processing and visualizing pcd.
+        processPointClouds.h
+        processPointClouds.cpp - Functions for filtering, segmenting, clustering, boxing, loading, and saving pcd.
+
+
+
+
+
+https://github.com/udacity/SFND_Lidar_Obstacle_Detection
+Local Installation
+- Mac
+8. Execute the following commands in a terminal
+    cd ~/SFND_Lidar_Obstacle_Detection
+    mkdir build && cd build
+    cmake ..
+    make    // used to recompile code
+    ./environment
+
+
+cmake
+https://cmake.org/install/
+- macOS
+ follow the “How to Install For Command Line Use” menu item for instructions to make the command-line tools (e.g. cmake) available in the PATH
+
+
+cmake
+https://github.com/udacity/SFND_Lidar_Obstacle_Detection/issues/45
+QT5_DIR=$(brew info qt5 | grep "^$(brew --cellar qt5)" | cut -d' ' -f1)
+cmake .. ... -DCMAKE_PREFIX_PATH=$QT5_DIR/
+
+
+make
+https://github.com/udacity/SFND_Lidar_Obstacle_Detection/issues/47
+changing boost::filesystem to std::__fs::filesystem in every line the error was shown
+
+
+
+
+
+
+The initCamera function helps you set up different viewing angles in your window. There are five different options: XY, TopDown, Side, and FPS. XY gives a 45 degree angle view, while FPS is First Person Sense and gives the sensation of being in the car’s driver seat.
+
+
+
+
+Zoom: hold the right mouse key and move the mouse forward/backwards, or use your mouse scroller.
+Pan: Hold down the middle mouse button (the scroller) and move the mouse.
+Rotate: Hold the left mouse button and move the mouse.

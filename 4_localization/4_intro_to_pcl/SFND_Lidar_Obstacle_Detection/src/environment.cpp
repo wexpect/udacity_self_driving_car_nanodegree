@@ -46,6 +46,27 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     std::vector<Car> cars = initHighway(renderScene, viewer);
     
     // TODO:: Create lidar sensor 
+    /*
+    You will instantiate a pointer to a Lidar object in the simpleHighway function.
+
+    The lidar arguments are necessary for modeling ray collisions.
+    
+    The Lidar constructor takes two arguments: cars and the slope of the ground - these arguments are necessary for modeling ray collisions. 
+    The Lidar object should be created with a slope of 0.
+
+    The Lidar object is going to be holding point cloud data which could be very large.
+    By instantiating on the heap, we have more memory to work with than the 2MB on the stack. 
+    However, it takes longer to look up objects on the heap, while stack lookup is very fast.    
+
+    You should create the Lidar pointer object on the heap, using the new keyword. 
+    */
+
+    double groundSlope = 0;
+    Lidar* lidar = new Lidar(cars, groundSlope); 
+
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = lidar->scan();
+
+    renderRays(viewer, lidar->position, cloud);    
 
     // TODO:: Create point processor
   
@@ -63,6 +84,12 @@ void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& vi
     // distance away in meters
     int distance = 16;
     
+    /*
+    The initCamera function helps you set up different viewing angles in your window. 
+    There are five different options: XY, TopDown, Side, and FPS. 
+    XY gives a 45 degree angle view, while
+     FPS is First Person Sense and gives the sensation of being in the car’s driver seat.
+    */
     switch(setAngle)
     {
         case XY : viewer->setCameraPosition(-distance, -distance, distance, 1, 1, 0); break;

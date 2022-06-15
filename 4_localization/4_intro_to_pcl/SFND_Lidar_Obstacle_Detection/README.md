@@ -1,4 +1,6 @@
 # Sensor Fusion Self-Driving Car Course
+https://github.com/udacity/SFND_Lidar_Obstacle_Detection
+
 
 <img src="media/ObstacleDetectionFPS.gif" width="700" height="400" />
 
