@@ -22,16 +22,61 @@ Code Structure
 
 
 
-
-https://github.com/udacity/SFND_Lidar_Obstacle_Detection
 Local Installation
 - Mac
+Install via Homebrew
+
+1. install homebrew
+
+2. update homebrew
+$> brew update
+
+3. add homebrew science tap
+$> brew tap brewsci/science
+
+4. view pcl install options
+$> brew options pcl
+
+5. install PCL
+$> brew install pcl    // will be installed at /usr/local/lib/libpcl_common.dylib
+
+6. Clone this github repo
+cd ~
+git clone https://github.com/udacity/SFND_Lidar_Obstacle_Detection.git
+
+7. Edit the CMakeLists.txt file as shown in Step 2 of Ubuntu installation instructions above. The build process is defined from the CMakeLists.txt file.
+
+
+cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+
+add_definitions(-std=c++14)
+
+set(CXX_FLAGS "-Wall")
+set(CMAKE_CXX_FLAGS, "${CXX_FLAGS}")
+
+project(playback)
+
+find_package(PCL 1.11 REQUIRED)
+
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+list(REMOVE_ITEM PCL_LIBRARIES "vtkproj4")
+
+
+add_executable (environment src/environment.cpp src/render/render.cpp src/processPointClouds.cpp)
+target_link_libraries (environment ${PCL_LIBRARIES})
+
+
+
 8. Execute the following commands in a terminal
     cd ~/SFND_Lidar_Obstacle_Detection
     mkdir build && cd build
-    cmake ..
-    make    // used to recompile code
-    ./environment
+    cmake ..     // run make pointing to the CMakeLists.txt in the root. The build process is defined in CMakeLists.txt file.
+
+    make    // used to recompile code, and built an executable file
+    ./environment  // launch the executable file
+
 
 
 cmake
@@ -41,14 +86,24 @@ https://cmake.org/install/
 
 
 cmake
+got QT5 not found error
 https://github.com/udacity/SFND_Lidar_Obstacle_Detection/issues/45
+So,
+
 QT5_DIR=$(brew info qt5 | grep "^$(brew --cellar qt5)" | cut -d' ' -f1)
 cmake .. ... -DCMAKE_PREFIX_PATH=$QT5_DIR/
 
 
+
+
 make
+Got error: 
+/Users/antonioortiz/Proyectos/NanoDegree/SFND_Lidar_Obstacle_Detection/src/processPointClouds.h:47:17:
+no member named 'filesystem' in namespace 'boost'; did you mean 'std::__fs::filesystem'?
+
 https://github.com/udacity/SFND_Lidar_Obstacle_Detection/issues/47
-changing boost::filesystem to std::__fs::filesystem in every line the error was shown
+
+So, change boost::filesystem to std::__fs::filesystem in every line the error was shown
 
 
 
