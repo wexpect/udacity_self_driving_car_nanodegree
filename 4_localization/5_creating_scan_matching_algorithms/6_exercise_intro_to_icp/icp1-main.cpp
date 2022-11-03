@@ -26,7 +26,7 @@ Eigen::Matrix4d ICP(PointCloudT::Ptr target, PointCloudT::Ptr source, Pose start
 
 	// std::cout << "step 1" << std::endl;
 
-	Eigen::Matrix4d transformation_matrix = Eigen::Matrix4d::Identity ();
+	Eigen::Matrix4d transformation_matrix = Eigen::Matrix4d::Identity();
 
 	//TODO: complete the ICP function and return the corrected transform
 	
@@ -34,16 +34,16 @@ Eigen::Matrix4d ICP(PointCloudT::Ptr target, PointCloudT::Ptr source, Pose start
 	// https://pointclouds.org/documentation/tutorials/iterative_closest_point.html
 
 	// align source with starting pose
- 	// NOTE: seems it converts the source point clouds from lidar coordinate to global coordinate
+ 	// NOTE: seems it converts the source point clouds from local coordinate to global coordinate
 	// Transform the source to the startingPose
 	cout <<"\nstartingPose: " << endl;		
 	startingPose.Print();
   	Eigen::Matrix4d initTransform = transform2D(startingPose.theta, startingPose.position.x, startingPose.position.y);
 	cout << "\ninitTransform: " << endl;
 	print4x4Matrix(initTransform);
-	Pose tmpPose = getPose(initTransform);
-	cout << "tmpPose: ";
-	tmpPose.Print();
+	Pose initPose = getPose(initTransform);
+	cout << "initPose: ";
+	initPose.Print();
 	// std::cout << "step 2" << std::endl;  	  
 	PointCloudT::Ptr transformSource (new PointCloudT); 
 	// NOTE: A transformation on a point cloud can be done.
@@ -77,22 +77,22 @@ Eigen::Matrix4d ICP(PointCloudT::Ptr target, PointCloudT::Ptr source, Pose start
 		transformation_matrix = icp.getFinalTransformation ().cast<double>();
 		cout << "\ntransformation_matrix: " << endl;
 		print4x4Matrix(transformation_matrix);
-		tmpPose = getPose(transformation_matrix);
-		cout << "tmpPose: ";
-		tmpPose.Print();
+		Pose localPose = getPose(transformation_matrix);
+		cout << "localPose: ";
+		localPose.Print();
 
 		// NOTE: get the overall transformation of source
   		transformation_matrix =  transformation_matrix * initTransform;
 		cout << "\ntransformation_matrix * initTransform: " << endl;
 		print4x4Matrix(transformation_matrix);
-		tmpPose = getPose(transformation_matrix);
-		cout << "tmpPose: ";
-		tmpPose.Print();
+		Pose overallPose = getPose(transformation_matrix);
+		cout << "overallPose: ";
+		overallPose.Print();
 
   		return transformation_matrix;
   	}
-  	cout << "WARNING: ICP did not converge" << endl;
 
+  	cout << "WARNING: ICP did not converge" << endl;
 	return transformation_matrix;
 }
 
@@ -103,7 +103,6 @@ int main(){
 	viewer->addCoordinateSystem (1.0);
 
 	// NOTE: global coordinste system: x points to right, y points to up, theta is from positive x axis
-
 	// create a room
 	double lowerX = -5;
 	double upperX = 5;
@@ -120,13 +119,14 @@ int main(){
 	room.push_back(left);
 
 	// create lidar
-	Lidar lidar(0, 0, 0, 100, 128);
+	Lidar lidar(0, 0, 0, 100, 128);  // x, y, theta, range, resolution
 
 	PointCloudT::Ptr poses (new PointCloudT); 	// ground truth
 	PointCloudT::Ptr locator (new PointCloudT); // estimated locations
 
 	// starting location
-	poses->points.push_back(PointT(lidar.x, lidar.y, 0));  // x, y, z
+	// NOTE: global coordinate: (x, y, z). Not contain theta here
+	poses->points.push_back(PointT(lidar.x, lidar.y, 0));  
 	locator->points.push_back(PointT(lidar.x, lidar.y, 0));
 
 	// get map of room
@@ -142,6 +142,7 @@ int main(){
 	// So the startingPose always needs to be close to the actual position in order for ICP to work well.
 
 	// Part 1. Localize from single step
+	// NOTE: (magnitude, delta_theta)	in local coordinate
 	vector<Vect2> movement = {Vect2(0.5, pi/12)};  // 15 degree
 
 	// vector<Vect2> movement = {Vect2(0.5, pi/12)};  // 15 degree
@@ -185,15 +186,17 @@ int main(){
 		// scan the room
 		scan = lidar.scan(room);
 		cout << "\nscan captured " << scan->points.size() << " points" << endl;
-		// for this specific render, it is in lidar coordinate system
+		// for this specific render, it is in lidar local coordinate system
 		renderPointCloud(viewer, scan, "scan_" + to_string(count), Color(1,0,0)); // render scan: red
 		 
 		// perform localization
 		//TODO: make the iteration count greater than zero
 		// Eigen::Matrix4d transform = ICP(map, scan, location, 0); 
+		// NOTE: here, use location as startingPose
 		Eigen::Matrix4d transform = ICP(map, scan, location, 50); 
 
-		// NOTE: I think this is delta_x, delta_y, delta_theta, with respect to the target
+		// NOTE: I think this is (x, y, theta) of estimate in global coordinate.
+		// also, consider as (delta_x, delta_y, delta_theta) with respect to the origin of global coordinate
 		Pose estimate = getPose(transform);
 		cout << "\nestimate: ";
 		estimate.Print();

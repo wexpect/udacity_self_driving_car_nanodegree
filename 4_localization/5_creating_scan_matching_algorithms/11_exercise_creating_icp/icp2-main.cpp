@@ -151,6 +151,7 @@ vector<Pair> PairPoints(vector<int> associations, PointCloudT::Ptr target, Point
 // NOTE: do not know what is the usage of this variable
 vector<Pair> estimations;
 
+// NOTE: here, the ICP is only one round, not iterative
 Eigen::Matrix4d ICP(vector<int> associations, PointCloudT::Ptr target, PointCloudT::Ptr source, Pose startingPose, int iterations, pcl::visualization::PCLVisualizer::Ptr& viewer){
 
   	// TODO: transform source by startingPose
@@ -240,7 +241,7 @@ Eigen::Matrix4d ICP(vector<int> associations, PointCloudT::Ptr target, PointClou
 	transformation_matrix(0, 3) = t(0, 0);			
 	transformation_matrix(1, 3) = t(1, 0);		
 
-	// NOTE: get the full transformation matrix
+	// NOTE: get the overall transformation matrix, from source to target
 	transformation_matrix = transformation_matrix * initTransform;
 
 	// NOTE: do not know what is the usage of this variable
@@ -301,6 +302,7 @@ int main(){
   	while (!viewer->wasStopped())
   	{
 		if(matching){
+			// NOTE: By consecutively hitting space you can see how ICP converges the source point cloud into the target point cloud
 
 			std::cout << "start matching: matching " << matching << ", update " << update << ", init " << init << std::endl;
 
@@ -318,10 +320,12 @@ int main(){
 				associations = NN(target, source, transformInit, 5);
 			else
 				associations = bestAssociations;
-
+			
+			// NOTE: here, the ICP is only one round, not iterative
 			Eigen::Matrix4d transform = ICP(associations, target, source, pose, 1, viewer);
 
 			pose = getPose(transform);
+			
   			pcl::transformPointCloud (*source, *transformed_scan, transform);
 			viewer->removePointCloud("icp_scan");
   			renderPointCloud(viewer, transformed_scan, "icp_scan", Color(0,1,0));  // green

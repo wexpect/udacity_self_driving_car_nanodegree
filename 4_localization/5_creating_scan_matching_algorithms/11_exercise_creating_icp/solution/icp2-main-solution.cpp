@@ -146,8 +146,6 @@ Eigen::Matrix4d ICP(vector<int> associations, PointCloudT::Ptr target, PointClou
 
 	//cout << "score is " << Score(pairs, Eigen::MatrixXd::Identity(4,4) ) << endl;
 
-	Eigen::MatrixXd X(2,pairs.size());
-	Eigen::MatrixXd Y(2,pairs.size());
 	Eigen::MatrixXd P(2,1);
 	P << Eigen::MatrixXd::Zero(2,1);
 	Eigen::MatrixXd Q(2,1);
@@ -165,6 +163,11 @@ Eigen::Matrix4d ICP(vector<int> associations, PointCloudT::Ptr target, PointClou
 
 	Q(0,0) = Q(0,0)/pairs.size();
 	Q(1,0) = Q(1,0)/pairs.size();
+
+
+	Eigen::MatrixXd X(2,pairs.size());
+	Eigen::MatrixXd Y(2,pairs.size());
+
 	int index = 0;
 	for(Pair pair : pairs){
 		X(0,index) = pair.p1.x - P(0,0);
@@ -178,6 +181,7 @@ Eigen::Matrix4d ICP(vector<int> associations, PointCloudT::Ptr target, PointClou
 	// compute best R and t from using SVD
 	Eigen::MatrixXd S  = X * Y.transpose();
 	JacobiSVD<MatrixXd> svd(S, ComputeFullV | ComputeFullU);
+	
 	Eigen::MatrixXd D;
 	D.setIdentity(svd.matrixV().cols(), svd.matrixV().cols());
 	D(svd.matrixV().cols()-1,svd.matrixV().cols()-1) = (svd.matrixV() * svd.matrixU().transpose() ).determinant();
