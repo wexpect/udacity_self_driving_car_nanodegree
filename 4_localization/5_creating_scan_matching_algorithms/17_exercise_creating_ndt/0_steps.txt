@@ -1,0 +1,25 @@
+
+## How to compile:
+
+
+
+mkdir build && cd build
+
+
+
+cmake ..
+got QT5 errors, so
+https://github.com/udacity/SFND_Lidar_Obstacle_Detection/issues/45
+
+QT5_DIR=$(brew info qt5 | grep "^$(brew --cellar qt5)" | cut -d' ' -f1)
+cmake .. -DCMAKE_PREFIX_PATH=$QT5_DIR/
+
+
+
+
+make   // recompile code
+
+## How to run:
+./ndt
+
+

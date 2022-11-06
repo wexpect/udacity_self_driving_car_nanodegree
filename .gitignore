@@ -131,3 +131,5 @@ my_tracking_results.gif
 
 *.pkl
 *.pth
+
+*.tgz
