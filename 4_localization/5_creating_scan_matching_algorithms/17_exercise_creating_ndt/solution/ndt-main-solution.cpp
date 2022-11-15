@@ -262,7 +262,7 @@ void NewtonsMethod(PointT point, double theta, Cell cell, Eigen::MatrixBase<Deri
 	q_pp(1,0) = -point.x*sin(theta)-point.y*cos(theta);
 
 	Eigen::MatrixXd EXP(1,1);
-	EXP(0,0) = exp(-0.5 * (q.transpose() * Si * q)(0,0) );
+	EXP(0,0) = exp( -0.5 * (q.transpose() * Si * q)(0,0) );
 
 	Eigen::MatrixXd g(3,1);
 	g(0,0) = (q.transpose() * Si * q_p1 * EXP)(0,0);
@@ -270,7 +270,7 @@ void NewtonsMethod(PointT point, double theta, Cell cell, Eigen::MatrixBase<Deri
 	g(2,0) = (q.transpose() * Si * q_p3 * EXP)(0,0);
 
 	Eigen::MatrixXd H(3,3);
-	H(0,0) = (-EXP*( (-q.transpose()*Si*q_p1)*(-q.transpose()*Si*q_p1)+(-q_p1.transpose()*Si*q_p1)))(0,0);
+	H(0,0) = ( -EXP * ( (-q.transpose()*Si*q_p1) * (-q.transpose()*Si*q_p1) + (-q_p1.transpose()*Si*q_p1) ) ) (0,0);
 	H(0,1) = (-EXP*( (-q.transpose()*Si*q_p1)*(-q.transpose()*Si*q_p2)+(-q_p2.transpose()*Si*q_p1)))(0,0);
 	H(0,2) = (-EXP*( (-q.transpose()*Si*q_p1)*(-q.transpose()*Si*q_p3)+(-q_p3.transpose()*Si*q_p1)))(0,0);
 	H(1,0) = (-EXP*( (-q.transpose()*Si*q_p2)*(-q.transpose()*Si*q_p1)+(-q_p1.transpose()*Si*q_p2)))(0,0);
@@ -278,7 +278,7 @@ void NewtonsMethod(PointT point, double theta, Cell cell, Eigen::MatrixBase<Deri
 	H(1,2) = (-EXP*( (-q.transpose()*Si*q_p2)*(-q.transpose()*Si*q_p3)+(-q_p3.transpose()*Si*q_p2)))(0,0);
 	H(2,0) = (-EXP*( (-q.transpose()*Si*q_p3)*(-q.transpose()*Si*q_p1)+(-q_p1.transpose()*Si*q_p3)))(0,0);
 	H(2,1) = (-EXP*( (-q.transpose()*Si*q_p3)*(-q.transpose()*Si*q_p2)+(-q_p2.transpose()*Si*q_p3)))(0,0);
-	H(2,2) = (-EXP*( (-q.transpose()*Si*q_p3)*(-q.transpose()*Si*q_p3)+(-q.transpose()*Si*q_pp)+(-q_p3.transpose()*Si*q_p3)))(0,0);
+	H(2,2) = (-EXP*( (-q.transpose()*Si*q_p3)*(-q.transpose()*Si*q_p3)+(-q_p3.transpose()*Si*q_p3) + (-q.transpose()*Si*q_pp))) (0,0);
 
 	H_previous += H;
 	g_previous += g;
@@ -428,7 +428,9 @@ int main(){
 			// TODO: calculate the new point by transforming point by the T matrix which is [x translation, y translation, theta rotation]
 			// 	   pointT(new x, new y, 1), values below should be nonzero
 			PointT pointT(point.x * cos(T(2,0)) - point.y * sin(T(2,0)) + T(0,0) - point.x ,  point.x * sin(T(2,0)) + point.y * cos(T(2,0)) + T(1,0) - point.y , 1);
+			
 			double magT = sqrt(pointT.x*pointT.x + pointT.y*pointT.y);
+			
 			double maxDelta = 0.5; // CANDO: change the step size value
 			pointT.x *= maxDelta/magT;
 			pointT.y *= maxDelta/magT;

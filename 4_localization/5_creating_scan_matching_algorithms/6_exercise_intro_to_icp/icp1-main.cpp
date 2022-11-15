@@ -3,7 +3,20 @@
 // Aaron Brown
 
 
+
 /*
+Two very good materials:
+
+1, ICP(Iterative Closest Point)算法和Umeyama算法
+https://blog.csdn.net/weixin_41469272/article/details/105314963
+
+
+2, Joining Point Cloud Scans (ICP) - Computerphile
+https://www.youtube.com/watch?v=4uWSo8v3iQA
+
+
+
+
 https://www.programiz.com/cpp-programming/std-namespace#:~:text=In%20C%2B%2B%2C%20a%20namespace,in%20a%20namespace%20called%20std%20.
 
 use the using directive to bring all the identifiers of the namespace std as if

@@ -1,3 +1,13 @@
+/*
+NOTE:
+
+NDT（Normal Distributions Transform）算法原理与公式推导 
+https://www.cnblogs.com/21207-iHome/p/8039741.html
+
+*/
+
+
+
 // Udacity C3 Localization
 // Dec 21 2020
 // Aaron Brown

@@ -25,7 +25,7 @@ Pose savedPose = pose;
 step 1, press i to run ICP
 
 step 2, use key arrows to move and rotate
-step 3, press x and then space to set as new pose, or press space to cancel and back to last seted new pose
+step 3, press x and then "space" to set as new pose, or press space to cancel and back to last seted new pose
 step 4, press i to run ICP
 */
 
