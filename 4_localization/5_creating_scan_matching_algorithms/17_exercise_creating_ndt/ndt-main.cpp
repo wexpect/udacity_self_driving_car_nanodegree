@@ -404,6 +404,7 @@ double computeStepLength(Eigen::MatrixXd T, PointCloudT::Ptr source, Pose pose, 
 	return bestAlpha * mlength;
 }
 
+// NOTE: Positive Definite
 template<typename Derived>
 double PosDef(Eigen::MatrixBase<Derived>& A, double start, double increment, int maxIt){
 
