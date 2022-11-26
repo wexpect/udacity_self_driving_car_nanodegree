@@ -13,8 +13,8 @@ class Vehicle {
  public:
   // Constructors
   Vehicle();
-  // Note: seems v = velocity, a = acceleration
-  // CS, constant_speed
+
+  // Note: seems s = position, v = velocity, a = acceleration, state: CS means constant_speed
   Vehicle(int lane, float s, float v, float a, string state="CS");
 
   // Destructor
@@ -62,12 +62,16 @@ class Vehicle {
     int  time; // time collision happens
   };
 
-  map<string, int> lane_direction = {{"PLCL", 1}, {"LCL", 1}, 
-                                     {"LCR", -1}, {"PLCR", -1}};
+  map<string, int> lane_direction = {
+    {"PLCL", 1}, 
+    {"LCL", 1}, 
+    {"LCR", -1}, 
+    {"PLCR", -1}
+  };
 
   int L = 1;
 
-  int preferred_buffer = 6; // impacts "keep lane" behavior.
+  int preferred_buffer = 6; // impacts "keep lane" behavior
 
   int lane, s, goal_lane, goal_s, lanes_available;
 

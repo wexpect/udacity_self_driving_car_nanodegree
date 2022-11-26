@@ -1,19 +1,3 @@
-/* 
-In this exercise you will implement a behavior planner and cost functions for highway driving. 
-The planner will use prediction data to set the state of the ego vehicle to one of 5 values 
-and generate a corresponding vehicle trajectory:
-
-"KL" - Keep Lane
-"LCL" / "LCR"- Lane Change Left / Lane Change Right
-"PLCL" / "PLCR" - Prepare Lane Change Left / Prepare Lane Change Right
-
-The objective of the quiz is to navigate through traffic to the goal in as little time as possible. 
-Note that the goal lane and s value, as well as the traffic speeds for each lane, are set in main.cpp below. 
-Since the goal is in the slowest lane, in order to get the lowest time, you'll want to choose cost functions 
-and weights to drive in faster lanes when appropriate. 
-We've provided two suggested cost functions in cost.cpp.
-*/
-
 #include <iostream>
 #include <vector>
 #include "road.h"
@@ -29,13 +13,15 @@ int SPEED_LIMIT = 10;
 vector<int> LANE_SPEEDS = {6,7,8,9}; 
 
 // Number of available "cells" which should have traffic
+// NOTE: probability of having a vehicle
 double TRAFFIC_DENSITY = 0.15;
 
 // At each timestep, ego can set acceleration to value between 
 //   -MAX_ACCEL and MAX_ACCEL
 int MAX_ACCEL = 2;
 
-// s value and lane number of goal.
+// NOTE: seems s is position
+// s value and lane_idx of goal.
 vector<int> GOAL = {300, 0};
 
 // These affect the visualization
@@ -47,43 +33,50 @@ int main() {
 
   road.update_width = AMOUNT_OF_ROAD_VISIBLE;
 
+  // NOTE: generate other vehicles
   road.populate_traffic();
 
   int goal_s = GOAL[0];
   int goal_lane = GOAL[1];
 
-  // configuration data: speed limit, num_lanes, goal_s, goal_lane, 
-  //   and max_acceleration
+  // configuration data: speed limit, num_lanes, goal_s, goal_lane, and max_acceleration
   int num_lanes = LANE_SPEEDS.size();
-  vector<int> ego_config = {SPEED_LIMIT,num_lanes,goal_s,goal_lane,MAX_ACCEL};
+  vector<int> ego_config = {SPEED_LIMIT, num_lanes, goal_s, goal_lane, MAX_ACCEL};
    
-  // add_ego(lane number, s, config_data)
-  road.add_ego(2,0, ego_config);
+  // add_ego(lane_idx, s, config_data)
+  road.add_ego(2, 0, ego_config);
 
   // NOTE: seems here the unit of timestep is 1 second
   int timestep = 0;
   
   while (road.get_ego().s <= GOAL[0]) {
     ++timestep;
+
     if (timestep > 100) {
       break;
     }
+
     road.advance();
+
     road.display(timestep);
     //time.sleep(float(1.0) / FRAMES_PER_SECOND);
   }
 
-  Vehicle ego = road.get_ego();
+  Vehicle ego = road.get_ego(); 
   if (ego.lane == GOAL[1]) {
     cout << "You got to the goal in " << timestep << " seconds!" << endl;
+
     if(timestep > 35) {
       cout << "But it took too long to reach the goal. Go faster!" << endl;
-    } else{
+    } 
+    else{
       cout << "Success!" << endl;
     }
-  } else {
+
+  } 
+  else {
     cout << "You missed the goal. You are in lane " << ego.lane 
-         << " instead of " << GOAL[1] << "." << endl;
+    << ", instead of " << GOAL[1] << "." << endl;
   }
 
   return 0;

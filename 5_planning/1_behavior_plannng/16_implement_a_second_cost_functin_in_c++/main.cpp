@@ -49,34 +49,39 @@ int main() {
 }
 
 /* 
+(env) Ruis-MacBook-Pro-15:16_implement_a_second_cost_functin_in_c++ ruiwang$ g++ -std=c++11 *.cpp -o output.out
+(env) Ruis-MacBook-Pro-15:16_implement_a_second_cost_functin_in_c++ ruiwang$ ./output.out
+
+
+# Option 1
 target_speed = 10
 Costs for (intended_lane, final_lane):
 ---------------------------------------------------------
 intended_lane = 3, intended_speed = 9
 final_lane = 3, final_speed = 9
-The cost is 0 for (3, 3)
+The cost is 0.864665 for (3, 3)
 intended_lane = 2, intended_speed = 8
 final_lane = 3, final_speed = 9
-The cost is 0 for (2, 3)
+The cost is 0.950213 for (2, 3)
 intended_lane = 2, intended_speed = 8
 final_lane = 2, final_speed = 8
-The cost is 0 for (2, 2)
+The cost is 0.981684 for (2, 2)
 intended_lane = 1, intended_speed = 7
 final_lane = 2, final_speed = 8
-The cost is 0 for (1, 2)
+The cost is 0.993262 for (1, 2)
 intended_lane = 1, intended_speed = 7
 final_lane = 1, final_speed = 7
-The cost is 0 for (1, 1)
+The cost is 0.997521 for (1, 1)
 intended_lane = 0, intended_speed = 6
 final_lane = 1, final_speed = 7
-The cost is 0 for (0, 1)
+The cost is 0.999088 for (0, 1)
 intended_lane = 0, intended_speed = 6
 final_lane = 0, final_speed = 6
-The cost is 0 for (0, 0)
+The cost is 0.999665 for (0, 0)
 
 
-(env) Ruis-MacBook-Pro-15:16_implement_a_second_cost_functin_in_c++ ruiwang$ g++ -std=c++11 *.cpp -o output.out
-(env) Ruis-MacBook-Pro-15:16_implement_a_second_cost_functin_in_c++ ruiwang$ ./output.out
+
+# Option 2
 target_speed = 10
 Costs for (intended_lane, final_lane):
 ---------------------------------------------------------

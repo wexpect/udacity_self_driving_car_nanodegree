@@ -1,30 +1,3 @@
-/* 
-https://www.tutorialspoint.com/cplusplus/cpp_member_operators.htm
-
-The . (dot) operator and the -> (arrow) operator are used to reference individual members of classes, structures, and unions.
-
-The dot operator is applied to the actual object. The arrow operator is used with a pointer to an object. For example, consider the following structure −
-
-struct Employee {
-   char first_name[16];
-   int  age;
-}  emp;
-
-
-The (.) dot operator
-To assign the value "zara" to the first_name member of object emp, you would write something as follows −
-strcpy(emp.first_name, "zara");
-
-The (->) arrow operator
-If p_emp is a pointer to an object of type Employee, then to assign the value "zara" to the first_name member of object emp, you would write something as follows −
-strcpy(p_emp->first_name, "zara");
-
-The -> is called the arrow operator. It is formed by using the minus sign followed by a greater than sign.
-
-Simply saying: To access members of a structure, use the dot operator. 
-To access members of a structure through a pointer, use the arrow operator.
- */
-
 #include <iostream>
 #include <iterator>
 #include <map>
@@ -60,28 +33,30 @@ void Road::populate_traffic() {
     int lane_speed = this->lane_speeds[l];
     bool vehicle_just_added = false;
 
-    for (int s = start_s; s < start_s+this->update_width; ++s) {
+    for (int s = start_s; s < start_s + this->update_width; ++s) {
       if (vehicle_just_added) {
         vehicle_just_added = false;
       }
       
       // NOTE: here the position of each vehicle is random
-      if (((double) rand() / (RAND_MAX)) < this->density) {
-        Vehicle vehicle = Vehicle(l,s,lane_speed,0);
+      if ( ( (double) rand() / (RAND_MAX) ) < this->density) {
+        Vehicle vehicle = Vehicle(l, s, lane_speed, 0);
         vehicle.state = "CS"; // constant speed
         this->vehicles_added += 1;
-        this->vehicles.insert(std::pair<int,Vehicle>(vehicles_added,vehicle));
+        this->vehicles.insert( std::pair<int, Vehicle>(vehicles_added, vehicle) );
         vehicle_just_added = true;
       }
+
     }
+
   }
+
 }
 
 void Road::advance() {
   map<int ,vector<Vehicle> > predictions;
 
   map<int, Vehicle>::iterator it = this->vehicles.begin();
-
   while (it != this->vehicles.end()) {
     int v_id = it->first;
     vector<Vehicle> preds = it->second.generate_predictions();
@@ -90,35 +65,41 @@ void Road::advance() {
   }
   
   it = this->vehicles.begin();
-
   while (it != this->vehicles.end()) {
     int v_id = it->first;
+    
     if (v_id == ego_key) {   
       vector<Vehicle> trajectory = it->second.choose_next_state(predictions);
       it->second.realize_next_state(trajectory);
-    } else {
+    } 
+    else {
+      // NOTE: move for 1 sec
       it->second.increment(1);
     }
     ++it;
   }   
+
 }
 
 void Road::add_ego(int lane_num, int s, vector<int> &config_data) {
+  
+  // NOTE: remove populated vehicles which conflicts with ego
   map<int, Vehicle>::iterator it = this->vehicles.begin();
-
   while (it != this->vehicles.end()) {
     int v_id = it->first;
     Vehicle v = it->second;
+
     if (v.lane == lane_num && v.s == s) {
       this->vehicles.erase(v_id);
     }
+
     ++it;
   }
     
   Vehicle ego = Vehicle(lane_num, s, this->lane_speeds[lane_num], 0);
   ego.configure(config_data);
   ego.state = "KL";
-  this->vehicles.insert(std::pair<int,Vehicle>(ego_key,ego));
+  this->vehicles.insert( std::pair<int,Vehicle>(ego_key,ego) );
 }
 
 void Road::display(int timestep) {

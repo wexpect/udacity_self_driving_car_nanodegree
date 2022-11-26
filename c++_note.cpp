@@ -167,3 +167,33 @@ Conclusion:
 This was a short post to quickly review all the ways to iterate over a vector using the for keyword in C++. There are other ways as well to achieve the same using while and do..while. 
  
 */
+
+
+
+
+/* 
+https://www.tutorialspoint.com/cplusplus/cpp_member_operators.htm
+
+The . (dot) operator and the -> (arrow) operator are used to reference individual members of classes, structures, and unions.
+
+The dot operator is applied to the actual object. The arrow operator is used with a pointer to an object. For example, consider the following structure −
+
+struct Employee {
+   char first_name[16];
+   int  age;
+}  emp;
+
+
+The (.) dot operator
+To assign the value "zara" to the first_name member of object emp, you would write something as follows −
+strcpy(emp.first_name, "zara");
+
+The (->) arrow operator
+If p_emp is a pointer to an object of type Employee, then to assign the value "zara" to the first_name member of object emp, you would write something as follows −
+strcpy(p_emp->first_name, "zara");
+
+The -> is called the arrow operator. It is formed by using the minus sign followed by a greater than sign.
+
+Simply saying: To access members of a structure, use the dot operator. 
+To access members of a structure through a pointer, use the arrow operator.
+ */
