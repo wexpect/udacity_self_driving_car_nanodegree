@@ -54,7 +54,7 @@ void Road::populate_traffic() {
 }
 
 void Road::advance() {
-  map<int ,vector<Vehicle> > predictions;
+  map<int ,vector<Vehicle>> predictions;
 
   map<int, Vehicle>::iterator it = this->vehicles.begin();
   while (it != this->vehicles.end()) {
@@ -70,6 +70,7 @@ void Road::advance() {
     
     if (v_id == ego_key) {   
       vector<Vehicle> trajectory = it->second.choose_next_state(predictions);
+      
       it->second.realize_next_state(trajectory);
     } 
     else {
