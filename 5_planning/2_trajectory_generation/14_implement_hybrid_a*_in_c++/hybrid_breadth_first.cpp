@@ -53,6 +53,11 @@ vector<HBF::maze_s> HBF::expand(HBF::maze_s &state, vector<int> &goal) {
   vector<HBF::maze_s> next_states;
 
   for(double delta_i = -35; delta_i < 40; delta_i+=5) {
+
+    // NOTE: 
+    // Simple Understanding of Kinematic Bicycle Model
+    // https://dingyan89.medium.com/simple-understanding-of-kinematic-bicycle-model-81cac6420357
+
     // NOTE: delta_i is in degrees, delta is in radian
     double delta = M_PI / 180.0 * delta_i;
     double omega = SPEED / LENGTH * tan(delta);
