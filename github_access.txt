@@ -1,8 +1,0 @@
-
-“Support for password authentication removed” for GitHub. How to Generate Personal Access Token?
-
-https://magecomp.com/blog/generate-personal-access-token-github/
-
-git remote set-url origin https://<generated_token>@github.com/wexpect/udacity_self_driving_car_nanodegree.git
-
-

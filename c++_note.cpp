@@ -6,11 +6,17 @@ g++ -std=c++11 *.cpp -o output.out
 
 
 /* 
+User definition:
+Go to Definition: option + down arrow
+Go Back: option + up arrow
+
+
+
+Default definition
 command click, go to definition
 
 control - shift , go forward
 control - , go back
-
  */
 
 
