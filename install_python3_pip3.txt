@@ -1,3 +1,8 @@
+
+git clone https://github.com/wexpect/udacity_self_driving_car_nanodegree.git
+
+
+
 1. download from official python website
 
 python3 -m venv env

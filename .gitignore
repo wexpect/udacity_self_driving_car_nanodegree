@@ -129,6 +129,8 @@ my_tracking_results.gif
 
 4_localization/4_intro_to_pcl/SFND_Lidar_Obstacle_Detection/build/
 
+5_planning/4_project_decision_making_and_motion_planning_for_autonomous_vehicles/output/output_video.MOV
+
 *.pkl
 *.pth
 
