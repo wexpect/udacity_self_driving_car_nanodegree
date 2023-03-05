@@ -262,9 +262,15 @@ int main() {
       behavior_and_motion_planner(x_points, y_points, v_points, yaw, velocity, goal, is_junction, tl_state, 
         spirals_x, spirals_y, spirals_v, best_spirals);
 
+
+      // Send control
       json msgJson;
-      msgJson["throttle"] = 0.25;
+      
+      // NOTE: here assign constant throttle and steer in Control.
+      // but not used in this project. see simulatorAPI.py L304
+      msgJson["throttle"] = 0.25;  
       msgJson["steer"] = 0.0;
+      
       msgJson["trajectory_x"] = x_points;
       msgJson["trajectory_y"] = y_points;
       msgJson["trajectory_v"] = v_points;

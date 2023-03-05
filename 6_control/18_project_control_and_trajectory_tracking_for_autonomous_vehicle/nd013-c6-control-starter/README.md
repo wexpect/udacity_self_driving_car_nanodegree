@@ -4,6 +4,8 @@
 
 In this project, you will apply the skills you have acquired in this course to design a PID controller to perform vehicle trajectory tracking. Given a trajectory as an array of locations, and a simulation environment, you will design and code a PID controller and test its efficiency on the CARLA simulator used in the industry.
 
+
+
 ### Installation
 
 Run the following commands to install the starter code in the Udacity Workspace:
@@ -11,6 +13,8 @@ Run the following commands to install the starter code in the Udacity Workspace:
 Clone the <a href="https://github.com/udacity/nd013-c6-control-starter/tree/master" target="_blank">repository</a>:
 
 `git clone https://github.com/udacity/nd013-c6-control-starter.git`
+
+
 
 ## Run Carla Simulator
 
@@ -21,6 +25,7 @@ Open new window
 * `cd /opt/carla-simulator/`
 * `SDL_VIDEODRIVER=offscreen ./CarlaUE4.sh -opengl`
 
+
 ## Compile and Run the Controller
 
 Open new window
@@ -28,10 +33,11 @@ Open new window
 * `cd nd013-c6-control-starter/project`
 * `./install-ubuntu.sh`
 * `cd pid_controller/`
-* `rm -rf rpclib`
-* `git clone https://github.com/rpclib/rpclib.git`
+* `rm -rf rpclib`   // NOTE: did not do it
+* `git clone https://github.com/rpclib/rpclib.git`   // NOTE: did not do it
 * `cmake .`
 * `make` (This last command compiles your c++ code, run it after every change in your code)
+
 
 ## Testing
 
@@ -44,9 +50,11 @@ This will silently fail `ctrl + C` to stop
 Go to desktop mode to see CARLA
 
 If error bind is already in use, or address already being used
-
 * `ps -aux | grep carla`
 * `kill id`
+
+
+
 
 
 ## Project Instructions

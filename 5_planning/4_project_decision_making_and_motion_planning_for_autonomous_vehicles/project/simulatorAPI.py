@@ -205,6 +205,9 @@ class World(object):
         start = carla.Transform()
         end = carla.Transform()
 
+
+        # NOTE: display is here
+
         # draw spirals
         height_plot_scale = 1.0
         height_plot_offset = 1.0
@@ -231,7 +234,7 @@ class World(object):
                 self.world.debug.draw_line(start.location, end.location, 0.1, color, .1)
                 previous_index = index  
 
-        
+                
         # draw path
         previous_index = 0
         for index in range(res, len(way_points), res):
@@ -296,8 +299,10 @@ class World(object):
                 _pivot.rotation.yaw  = _view_yaw * 180 / math.pi
                 _pivot.rotation.pitch  = _view_pitch * 180 / math.pi
                 _pivot.location.z += 2 + _view_radius * math.sin(math.pi + _view_pitch)
+
+                # NOTE: apply control here                
                 self.player.set_transform(way_points[0])
-                
+                # self.player.apply_control(carla.VehicleControl(throttle=throttle, steer=steer, brake=brake))                
 
             
 

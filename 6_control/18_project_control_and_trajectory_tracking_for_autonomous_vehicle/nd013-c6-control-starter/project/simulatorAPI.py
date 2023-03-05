@@ -207,42 +207,47 @@ class World(object):
         start = carla.Transform()
         end = carla.Transform()
 
-#         # draw spirals
-#         height_plot_scale = 1.0
-#         height_plot_offset = 1.0
-#         blue = carla.Color(r=0, g=0, b=255)
-#         green = carla.Color(r=0, g=255, b=0)
-#         red = carla.Color(r=255, g=0, b=0)
-#         for i in range(len(spirals_x)):
-#             previous_index = 0
-#             previous_speed = 0
-#             start = carla.Transform()
-#             end = carla.Transform()
-#             color = blue
-#             if i == spiral_idx[-1]:
-#                 color = green
-#             elif i in spiral_idx[:-1]:
-#                 color = red
-#             for index in range(1, len(spirals_x[i])):
-#                 start.location.x = spirals_x[i][previous_index]
-#                 start.location.y = spirals_y[i][previous_index]
-#                 end.location.x = spirals_x[i][index]
-#                 end.location.y = spirals_y[i][index]
-#                 start.location.z = height_plot_scale * spirals_v[i][previous_index] + height_plot_offset + _road_height
-#                 end.location.z =  height_plot_scale * spirals_v[i][index] + height_plot_offset + _road_height
-#                 self.world.debug.draw_line(start.location, end.location, 0.1, color, .1)
-#                 previous_index = index
+
+        # NOTE: display is here
+
+        # draw spirals
+        height_plot_scale = 1.0
+        height_plot_offset = 1.0
+        blue = carla.Color(r=0, g=0, b=255)
+        green = carla.Color(r=0, g=255, b=0)
+        red = carla.Color(r=255, g=0, b=0)
+        for i in range(len(spirals_x)):
+            previous_index = 0
+            previous_speed = 0
+            start = carla.Transform()
+            end = carla.Transform()
+            color = blue
+            if i == spiral_idx[-1]:
+                color = green
+            elif i in spiral_idx[:-1]:
+                color = red
+            for index in range(1, len(spirals_x[i])):
+                start.location.x = spirals_x[i][previous_index]
+                start.location.y = spirals_y[i][previous_index]
+                end.location.x = spirals_x[i][index]
+                end.location.y = spirals_y[i][index]
+                start.location.z = height_plot_scale * spirals_v[i][previous_index] + height_plot_offset + _road_height
+                end.location.z =  height_plot_scale * spirals_v[i][index] + height_plot_offset + _road_height
+                self.world.debug.draw_line(start.location, end.location, 0.1, color, .1)
+                previous_index = index
 
 
-#         # draw path
-#         previous_index = 0
-#         for index in range(res, len(way_points), res):
-#             start.location = way_points[previous_index].location
-#             end.location = way_points[index].location
-#             start.location.z = height_plot_scale * v_points[previous_index] + height_plot_offset + _road_height
-#             end.location.z = height_plot_scale * v_points[index] + height_plot_offset + _road_height
-#             self.world.debug.draw_line(start.location, end.location, 0.1, carla.Color(r=125, g=125, b=0), .1)
-#             previous_index = index
+        # draw path
+        previous_index = 0
+        for index in range(res, len(way_points), res):
+            start.location = way_points[previous_index].location
+            end.location = way_points[index].location
+            start.location.z = height_plot_scale * v_points[previous_index] + height_plot_offset + _road_height
+            end.location.z = height_plot_scale * v_points[index] + height_plot_offset + _road_height
+            self.world.debug.draw_line(start.location, end.location, 0.1, carla.Color(r=125, g=125, b=0), .1)
+            previous_index = index
+
+
 
         # increase wait time for debug
         wait_time = 0.0
@@ -301,8 +306,10 @@ class World(object):
                 _pivot.rotation.yaw  = _view_yaw * 180 / math.pi
                 _pivot.rotation.pitch  = _view_pitch * 180 / math.pi
                 _pivot.location.z += 2 + _view_radius * math.sin(math.pi + _view_pitch)
+
+                # NOTE: apply control here
                 # Teleports the actor to a given transform (location and rotation):
-#                 self.player.set_transform(way_points[0])
+                # self.player.set_transform(way_points[0])
                 self.player.apply_control(carla.VehicleControl(throttle=throttle, steer=steer, brake=brake))
 
 
@@ -413,6 +420,9 @@ class HUD(object):
         self.frame = timestamp.frame
         self.simulation_time = timestamp.elapsed_seconds
 
+
+
+    # NOTE: display is here
     def tick(self, world, clock):
         self._notifications.tick(world, clock)
         if not self._show_info:

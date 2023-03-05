@@ -79,7 +79,7 @@ class Robot(object):
 
         # Execute motion
         # QA: why?
-        # NOTE: seems turn is angle change of orientation
+        # NOTE: seems turn is change of orientation
         turn = np.tan(steering2) * distance2 / self.length
         if abs(turn) < tolerance:
             # approximate by straight line motion
