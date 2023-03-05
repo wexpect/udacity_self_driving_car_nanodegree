@@ -131,6 +131,8 @@ my_tracking_results.gif
 
 5_planning/4_project_decision_making_and_motion_planning_for_autonomous_vehicles/output/output_video.MOV
 
+6_control/18_project_control_and_trajectory_tracking_for_autonomous_vehicle/nd013-c6-control-starter/project/output/output.MOV
+
 *.pkl
 *.pth
 
