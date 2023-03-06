@@ -113,13 +113,22 @@ void path_planner(vector<double>& x_points, vector<double>& y_points, vector<dou
   if( x_points.size() > 1 ){
   	ego_state.rotation.yaw = angle_between_points(x_points[x_points.size()-2], y_points[y_points.size()-2], x_points[x_points.size()-1], y_points[y_points.size()-1]);
   	ego_state.velocity.x = v_points[v_points.size()-1];
+
+
+    std::cout<< "points" << std::endl;
+    std::cout << x_points[x_points.size()-2] << ", " << y_points[y_points.size()-2] << std::endl;
+    std::cout << x_points[x_points.size()-1] << ", " << y_points[y_points.size()-1] << std::endl;
+    std::cout<< "ego_state.rotation.yaw " << ego_state.rotation.yaw << std::endl;
+
+    std::cout<< "yaw " << yaw << std::endl;    
+
   	if(velocity < 0.01)
   		ego_state.rotation.yaw = yaw;
 
   }
 
   Maneuver behavior = behavior_planner.get_active_maneuver();
-
+  std::cout << "maneuver before: " << behavior << std::endl;
 
   std::cout << "Goal before state_transition" << std::endl;
   std::cout << "location " << goal.location.x << ", " << goal.location.y << ", " << goal.location.z << std::endl;
@@ -129,6 +138,8 @@ void path_planner(vector<double>& x_points, vector<double>& y_points, vector<dou
 
   goal = behavior_planner.state_transition(ego_state, goal, is_junction, tl_state);
 
+  std::cout << "maneuver after: " << behavior << std::endl;
+
   std::cout << "Goal after state_transition" << std::endl;
   std::cout << "location " << goal.location.x << ", " << goal.location.y << ", " << goal.location.z << std::endl;
   std::cout << "rotation " << goal.rotation.yaw << ", " << goal.rotation.pitch << ", " << goal.rotation.roll << std::endl;
@@ -137,7 +148,6 @@ void path_planner(vector<double>& x_points, vector<double>& y_points, vector<dou
 
 
   if(behavior == STOPPED){
-
   	int max_points = 20;
   	double point_x = x_points[x_points.size()-1];
   	double point_y = y_points[x_points.size()-1];
@@ -145,7 +155,6 @@ void path_planner(vector<double>& x_points, vector<double>& y_points, vector<dou
   	  x_points.push_back(point_x);
   	  y_points.push_back(point_y);
   	  v_points.push_back(0);
-
   	}
   	return;
   }
@@ -259,6 +268,13 @@ int main ()
   pid_throttle.Init(0.03, 0.004, 0.2, 1, -1);
 
 
+  // PID pid_steer = PID();
+  // // pid_steer.Init(0.5, 0.0005, 0.5, 1.2, -1.2);
+  // pid_steer.Init(1.0, 0.0005, 10.0, 1.2, -1.2);  
+
+  // PID pid_throttle = PID();
+  // pid_throttle.Init(0.1, 0, 0.02, 1, -1);
+
 
 
   h.onMessage([&pid_steer, &pid_throttle, &new_delta_time, &timer, &prev_timer, &i, &prev_timer](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode)
@@ -339,17 +355,19 @@ int main ()
           /**
           * TODO (step 3): compute the steer error (error_steer) from the position and the desired trajectory
           **/
-          
-          // error_steer = y_points[y_points.size() - 1] - goal.location.y;
-          // std::cout << "y " << y_points[y_points.size() - 1] << ", goal_y " << goal.location.y << std::endl;
-
-          // error_steer =  y_points[0] - y_points[y_points.size() - 1];
-          // std::cout << "y_actual " << y_points[0] << ", y_desired " << y_points[y_points.size() - 1] << std::endl;
-          // std::cout << "y_position " << y_position << std::endl;
-
-          error_steer =  y_position - y_points[y_points.size() - 1];
+          std::cout << "x_position " << x_position << ", x_desired " << x_points[x_points.size() - 1] << std::endl;
           std::cout << "y_position " << y_position << ", y_desired " << y_points[y_points.size() - 1] << std::endl;
-          
+          error_steer = y_position - y_points[y_points.size() - 1];
+
+
+          // std::cout << "x_position " << x_position << ", x_desired " << x_points[x_points.size() - 1] << std::endl;
+          // std::cout << "y_position " << y_position << ", y_desired " << y_points[y_points.size() - 1] << std::endl;
+          // double theta_real = yaw;
+          // double theta_desired = angle_between_points(x_position, y_position, x_points[x_points.size() - 1], y_points[y_points.size() - 1]);
+          // std::cout << "yaw " << yaw << ", theta_real " << theta_real << ", theta_desired " << theta_desired << std::endl;
+          // error_steer = theta_real - theta_desired;
+
+
 
 
           /**
@@ -389,18 +407,9 @@ int main ()
           * TODO (step 2): compute the throttle error (error_throttle) from the position and the desired speed
           **/
           // modify the following line for step 2
-          // error_throttle = v_points[v_points.size() - 1] - utils::magnitude(goal.velocity);
-          // std::cout << "speed " << v_points[v_points.size() - 1] << ", goal_speed " << utils::magnitude(goal.velocity) << std::endl;
-
-          // error_throttle = v_points[0] - v_points[v_points.size() - 1];
-          // std::cout << "speed_actual " << v_points[0] << ", speed_goal " << v_points[v_points.size() - 1] << std::endl;
-          // std::cout << "velocity " << velocity << std::endl;    
-
-
           error_throttle = velocity - v_points[v_points.size() - 1];
           std::cout << "velocity " << velocity << ", velocity_goal " << v_points[v_points.size() - 1] << std::endl;
              
-
 
           double throttle_output;
           double brake_output;
@@ -1784,9 +1793,5 @@ brake:  0.0
 velocity sent:  0.036941951259807676
 i 508
 
-path_planner start
-Goal before state_transition
-location 241.927, 7.95534, 0
-rotation -1.54648, 0, 0
 
 */

@@ -52,9 +52,8 @@ double PID::TotalError() {
 
    control = -kp * err - ki * sum_err - kd * diff_err;
 
-   std::cout << "err " << err << ", sum_err " << sum_err << ", diff_err " << diff_err  
-      << ", -kp*err " << -kp * err << ", -ki*sum_err " << -ki * sum_err << ", -kd*diff_err " << -kd * diff_err 
-      << ", control " << control;
+   std::cout<< "err " << err << ", sum_err " << sum_err << ", diff_err " << diff_err << std::endl;
+   std::cout<< "-kp*err " << -kp * err << ", -ki*sum_err " << -ki * sum_err << ", -kd*diff_err " << -kd * diff_err << std::endl;
 
    if(control > output_lim_max){
       control = output_lim_max;
@@ -63,7 +62,7 @@ double PID::TotalError() {
       control = output_lim_min;
    }
 
-   std::cout << ", control_lim " << control << std::endl;
+   std::cout << "control " << control << ", control_lim " << control << std::endl;
 
     return control;
 }
